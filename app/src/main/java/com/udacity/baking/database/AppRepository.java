@@ -1,6 +1,7 @@
 package com.udacity.baking.database;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,8 @@ import com.udacity.baking.network.TheRecipeDbService;
 import com.udacity.baking.utilities.SampleData;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,29 +26,27 @@ public class AppRepository {
 
     // For local storage
     public List<RecipeEntity> mRecipeList;
+    private AppDatabase mDb;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
 
     //private List<Recipe> mRecipeList;
 
-    public static AppRepository getInstance() {
+    public static AppRepository getInstance(Context context) {
         if (instance == null) {
-            instance = new AppRepository();
+            instance = new AppRepository(context);
         }
         return instance;
     }
 
-    private AppRepository(){
+    private AppRepository(Context context){
         mRecipeList = SampleData.getSampleRecipeData();
+
+        //Instantiate to allow db commands
+        mDb = AppDatabase.getInstance(context);
     }
 
-    // TODO: Retrieving data from a webservice
-/*    public List<Recipe> getRecipe() {
-        //return SampleData.getSampleRecipeData();
 
-        //initRetrofit();
-        // TODO add error handling if response fail
-        return mRecipeList;
-    }*/
 
 
 
@@ -85,4 +86,12 @@ public class AppRepository {
     }
 
 
+    public void addMovieData() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.recipeDao().insertAll(SampleData.getSampleRecipeData());
+            }
+        });
+    }
 }

@@ -34,8 +34,13 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
 
         // Initalize app repository
-        mRepository = AppRepository.getInstance();
-        mRecipeListObservable = mRepository.getInstance().getRecipeList();
+        mRepository = AppRepository.getInstance(application.getApplicationContext());
+
+        // TODO: CHECK IF THIS CAN BE USE INSTEAD
+        //mRecipeListObservable = mRepository.getRecipeList();
+        mRecipeListObservable = mRepository.getInstance(application.getApplicationContext()).getRecipeList();
+
+
         //mRecipe = mRepository.mRecipe;
         mRecipeList = mRepository.mRecipeList;
     }
@@ -65,5 +70,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public void setRecipeId(MutableLiveData<Integer> recipeId) {
         this.recipeId = recipeId;
+    }
+
+    public void addMovieData() {
+        mRepository.addMovieData();
     }
 }

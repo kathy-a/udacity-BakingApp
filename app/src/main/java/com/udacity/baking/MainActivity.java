@@ -82,10 +82,15 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO: possibly save data in room db
         Log.d(TAG, mViewModel.mRecipeList.get(1).getName());
+        addMovieList();
 
 
 
+    }
 
+    // Add movielist to local storage
+    private void addMovieList() {
+        mViewModel.addMovieData();
     }
 
 
