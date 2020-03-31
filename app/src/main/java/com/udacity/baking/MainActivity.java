@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
-        mViewModel.getmRecipeListObservable().observe(this, new Observer<List<Recipe>>() {
+        mViewModel.getRecipeListObservable().observe(this, new Observer<List<Recipe>>() {
                     @Override
                     public void onChanged(List<Recipe> recipes) {
                         if (recipes != null){
