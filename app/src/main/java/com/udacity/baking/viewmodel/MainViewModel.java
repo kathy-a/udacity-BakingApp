@@ -9,7 +9,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.database.AppRepository;
+import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.model.Recipe;
+import com.udacity.baking.utilities.SampleData;
 
 import java.util.List;
 
@@ -22,7 +24,9 @@ public class MainViewModel extends AndroidViewModel {
     private final LiveData<List<Recipe>> mRecipeListObservable;
     private AppRepository mRepository;
 
-    public List<Recipe> mRecipeList;
+    public List<Recipe> mRecipeList2;
+    public List<RecipeEntity> mRecipeList;
+
 
 
 
@@ -33,6 +37,7 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = AppRepository.getInstance();
         mRecipeListObservable = mRepository.getInstance().getRecipeList();
         //mRecipe = mRepository.mRecipe;
+        mRecipeList = mRepository.mRecipeList;
     }
 
     //Expose the LiveData Recipe query so the UI can observe it.

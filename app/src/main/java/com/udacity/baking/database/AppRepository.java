@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.network.RecipeService;
 import com.udacity.baking.network.TheRecipeDbService;
+import com.udacity.baking.utilities.SampleData;
 
 import java.util.List;
 
@@ -20,6 +21,10 @@ import retrofit2.Response;
 public class AppRepository {
     private static AppRepository instance;
 
+    // For local storage
+    public List<RecipeEntity> mRecipeList;
+
+
     //private List<Recipe> mRecipeList;
 
     public static AppRepository getInstance() {
@@ -29,9 +34,9 @@ public class AppRepository {
         return instance;
     }
 
-/*    private AppRepository(){
-        mRecipe = SampleData.getSampleRecipeData();
-    }*/
+    private AppRepository(){
+        mRecipeList = SampleData.getSampleRecipeData();
+    }
 
     // TODO: Retrieving data from a webservice
 /*    public List<Recipe> getRecipe() {

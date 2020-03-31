@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
+        // Get and observe recipelist from webservice
         mViewModel.getRecipeListObservable().observe(this, new Observer<List<Recipe>>() {
                     @Override
                     public void onChanged(List<Recipe> recipes) {
@@ -78,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        //TODO: possibly save data in room db
+        Log.d(TAG, mViewModel.mRecipeList.get(1).getName());
+
+
 
 
     }
