@@ -68,7 +68,7 @@ public class RecipeActivity extends AppCompatActivity {
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
-        mViewModel.setRecipe(SampleData.getSampleRecipeData().get(0));
+       // mViewModel.setRecipe(SampleData.getSampleRecipeData().get(0));
 
         //mViewModel.setRecipeId(movieId);
 
