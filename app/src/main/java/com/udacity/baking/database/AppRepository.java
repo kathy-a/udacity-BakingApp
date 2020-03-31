@@ -25,12 +25,12 @@ public class AppRepository {
     private static AppRepository instance;
 
     // For local storage
-    public List<RecipeEntity> mRecipeList;
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
 
-    //private List<Recipe> mRecipeList;
+
+    private List<Recipe> mRecipeList;
 
     public static AppRepository getInstance(Context context) {
         if (instance == null) {
@@ -40,8 +40,7 @@ public class AppRepository {
     }
 
     private AppRepository(Context context){
-        mRecipeList = SampleData.getSampleRecipeData();
-
+       // mLocalRecipeList = SampleData.getSampleRecipeData();
         //Instantiate to allow db commands
         mDb = AppDatabase.getInstance(context);
     }
@@ -49,23 +48,23 @@ public class AppRepository {
 
 
 
-
+    // Get Recipelist from webservice
     public LiveData<List<Recipe>> getRecipeList(){
         final MutableLiveData<List<Recipe>> recipeData = new MutableLiveData<>();
 
-
-
-        TheRecipeDbService service = RecipeService.getRetrofitInstance().create(TheRecipeDbService.class);
+        final TheRecipeDbService service = RecipeService.getRetrofitInstance().create(TheRecipeDbService.class);
 
         Call <List<Recipe>> call = service.getData();
 
 
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> recipeResponse) {
+                if(recipeResponse.isSuccessful()){
                     Log.d("on Response", "Response Successful");
-                    recipeData.setValue(response.body());
+                    recipeData.setValue(recipeResponse.body());
+
+
                 }else{
                     Log.d("on Response", "Response Fail");
                 }
@@ -80,18 +79,68 @@ public class AppRepository {
         });
 
 
-
         return recipeData;
 
     }
 
 
-    public void addMovieData() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.recipeDao().insertAll(SampleData.getSampleRecipeData());
-            }
-        });
+    public void addRecipeData(List<Recipe> recipes) {
+
+        for(int i =0; i < recipes.size(); i++){
+            String recipeName, recipeImage;
+            final int recipeId, recipeServings;
+
+            recipeName = recipes.get(i).getName();
+            recipeImage = recipes.get(i).getImage();
+            recipeId = recipes.get(i).getId();
+            recipeServings = recipes.get(i).getServings();
+
+            final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
+
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    // mDb.recipeDao().insertAll(mLocalRecipeList);
+                    mDb.recipeDao().insertRecipe(recipe);
+                }
+            });
+
+
+        }
+
+    }
+
+
+
+    public void convertRecipeObject(List<Recipe> recipes) {
+        // List<RecipeEntity> mLocalRecipeList = new List<RecipeEntity>;
+
+        for(int i =0; i < recipes.size(); i++){
+            String recipeName, recipeImage;
+            final int recipeId, recipeServings;
+
+            recipeName = recipes.get(i).getName();
+            recipeImage = recipes.get(i).getImage();
+            recipeId = recipes.get(i).getId();
+            recipeServings = recipes.get(i).getServings();
+
+            final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
+
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    // mDb.recipeDao().insertAll(mLocalRecipeList);
+                    mDb.recipeDao().insertRecipe(recipe);
+                }
+            });
+
+
+        }
+
+
+
+
+
+
     }
 }

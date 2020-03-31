@@ -33,7 +33,7 @@ public class SampleData {
         step1.add(new Step(1,"Short description 1", "description1", "video URL", "thumbnail"));
 
 
-        recipe.add(new RecipeEntity(100, SAMPLE_NAME_1,  5, "image string"));
+        recipe.add(new RecipeEntity(110, SAMPLE_NAME_1,  5, "image string"));
         recipe.add(new RecipeEntity(200, SAMPLE_NAME_2,  5, "image string"));
 
 
