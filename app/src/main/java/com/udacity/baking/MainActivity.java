@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         //addRecipeList();
 
 
-
     }
 
     // Add recipe list to local storage

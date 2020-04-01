@@ -1,14 +1,12 @@
 package com.udacity.baking.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.baking.R;
-import com.udacity.baking.model.Recipe;
-import com.udacity.baking.utilities.SampleData;
+import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.viewmodel.MainViewModel;
 
 
@@ -26,6 +23,8 @@ public class RecipeStepsFragment extends Fragment {
 
     private MainViewModel mViewModel;
     private TextView recipeStepsView;
+
+    private static final String TAG = "STEPS FRAGMENT";
     public RecipeStepsFragment() {
     }
 
@@ -49,20 +48,32 @@ public class RecipeStepsFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
-       // recipeStepsView.setText(mViewModel.getRecipe().getValue().getName());
 
+        // TODO: replace with id of selected recipe
+        int recipeId = 2;
 
-        // TODO: REMOVE TEMPORARY
-       // mViewModel.setRecipe(SampleData.getSampleRecipeData().get(0));
+        mViewModel.loadRecipe(recipeId);
 
-/*        mViewModel.getRecipe().observe(getViewLifecycleOwner(), new Observer<Recipe>() {
+        // Observer for main Recipe details
+        mViewModel.mLiveRecipe.observe(getViewLifecycleOwner(), new Observer<RecipeEntity>() {
             @Override
-            public void onChanged(Recipe recipe) {
-                recipeStepsView.setText(recipe.getName());
+            public void onChanged(RecipeEntity recipeEntity) {
+                if (recipeEntity != null){
+                    Log.d(TAG, "recipe found");
+                    Log.d(TAG, recipeEntity.getName());
+                    recipeStepsView.setText(recipeEntity.getName());
+                    // TODO: display data
+                }else{
+                    Log.d(TAG, "RECIPE NOT FOUND");
 
+                }
 
             }
-        });*/
+        });
+
+
+
+
 
 
     }

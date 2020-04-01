@@ -2,6 +2,7 @@ package com.udacity.baking.viewmodel;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,11 +14,13 @@ import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.model.Recipe;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
-    private MutableLiveData<Integer> recipeId = new MutableLiveData<>();
+    public MutableLiveData<Integer> recipeId = new MutableLiveData<>();
 
 
     private final LiveData<List<Recipe>> mRecipeListObservable;
@@ -26,6 +29,11 @@ public class MainViewModel extends AndroidViewModel {
     public List<Recipe> mRecipeList2;
     public List<RecipeEntity> mRecipeList;
 
+    public MutableLiveData<RecipeEntity> mLiveRecipe =
+            new MutableLiveData<>();
+
+
+    private Executor executor = Executors.newSingleThreadExecutor();
 
 
 
@@ -45,7 +53,6 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     //Expose the LiveData Recipe query so the UI can observe it.
-
     public LiveData<List<Recipe>> getRecipeListObservable() {
         return mRecipeListObservable;
     }
@@ -63,19 +70,47 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
+
+    //Set recipe id
     public LiveData<Integer> getRecipeId() {
         return recipeId;
     }
-
-    public void setRecipeId(MutableLiveData<Integer> recipeId) {
-        this.recipeId = recipeId;
+    public void setRecipeId(int recipeId) {
+        this.recipeId.setValue(recipeId);
     }
+
+
+
 
     public void addRecipeData(List<Recipe> recipes) {
         mRepository.addRecipeData(recipes);
     }
 
-    public void convertRecipeObject(List<Recipe> recipes) {
-        mRepository.convertRecipeObject(recipes);
+
+    // Get recipe from database
+    public void loadRecipe(final int recipeId) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                RecipeEntity recipe = mRepository.getRecipeById(recipeId);
+
+                if (recipe == null){
+                    Log.d("load recipe runnable", "recipe null");
+
+                }else{
+                    Log.d("load recipe runnable", "recipe found");
+                    mLiveRecipe.postValue(recipe);
+
+                }
+
+            }
+        });
+
     }
+
+
+
+
+
+
 }

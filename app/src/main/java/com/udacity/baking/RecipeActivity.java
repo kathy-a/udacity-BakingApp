@@ -2,13 +2,16 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.fragment.IngredientsFragment;
 import com.udacity.baking.fragment.RecipePageAdapter;
 import com.udacity.baking.fragment.RecipeStepsFragment;
@@ -35,8 +38,15 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-       getMovieId();
-       initViewModel();
+        initViewModel();
+
+
+
+
+
+
+
+
 
         mRecipePageAdapter = new RecipePageAdapter(getSupportFragmentManager()) ;
 
@@ -49,15 +59,17 @@ public class RecipeActivity extends AppCompatActivity {
 
     }
 
+
+
     private void getMovieId() {
         Intent intent = getIntent();
 
         if(intent != null){
-            //mRecipeSelected = (Recipe) intent.getSerializableExtra("recipe");
-
-
             movieId = intent.getIntExtra("recipeId",-1);
             Log.d(TAG, String.valueOf(movieId));
+
+            mViewModel.setRecipeId(movieId);
+
 
         }else{
             Log.d(TAG, "Intent null");
@@ -68,10 +80,19 @@ public class RecipeActivity extends AppCompatActivity {
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
-       // mViewModel.setRecipe(SampleData.getSampleRecipeData().get(0));
 
-        //mViewModel.setRecipeId(movieId);
+        getMovieId();
 
+
+
+        // Check if recipeID was changed
+        mViewModel.recipeId.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer id) {
+                Log.d(TAG, "Movie id: " + id.toString());
+
+            }
+        });
 
     }
 

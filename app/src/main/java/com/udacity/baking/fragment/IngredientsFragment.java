@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.udacity.baking.R;
+import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.viewmodel.MainViewModel;
 
@@ -49,6 +50,14 @@ public class IngredientsFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
+
+
+        mViewModel.mLiveRecipe.observe(getViewLifecycleOwner(), new Observer<RecipeEntity>() {
+            @Override
+            public void onChanged(RecipeEntity recipeEntity) {
+
+            }
+        });
 
        // ingredientsView.setText(mViewModel.getRecipe().getValue().getName());
 

@@ -112,35 +112,9 @@ public class AppRepository {
 
 
 
-    public void convertRecipeObject(List<Recipe> recipes) {
-        // List<RecipeEntity> mLocalRecipeList = new List<RecipeEntity>;
 
-        for(int i =0; i < recipes.size(); i++){
-            String recipeName, recipeImage;
-            final int recipeId, recipeServings;
-
-            recipeName = recipes.get(i).getName();
-            recipeImage = recipes.get(i).getImage();
-            recipeId = recipes.get(i).getId();
-            recipeServings = recipes.get(i).getServings();
-
-            final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
-
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    // mDb.recipeDao().insertAll(mLocalRecipeList);
-                    mDb.recipeDao().insertRecipe(recipe);
-                }
-            });
-
-
-        }
-
-
-
-
-
+    public RecipeEntity getRecipeById(int recipeId) {
+        return mDb.recipeDao().getRecipeById(recipeId);
 
     }
 }
