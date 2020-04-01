@@ -50,11 +50,28 @@ public class RecipeStepsFragment extends Fragment {
 
 
         // TODO: replace with id of selected recipe
-        int recipeId = 2;
 
-        mViewModel.loadRecipe(recipeId);
+/*        mViewModel.recipeId.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer recipeId) {
+                Log.d(TAG, "Movie id: " + recipeId.toString());
 
-        // Observer for main Recipe details
+                mViewModel.loadRecipe(recipeId);
+
+            }
+        });*/
+
+
+/*        int temp = mViewModel.tempRecipeId;
+        Log.d(TAG, String.valueOf(temp));*/
+
+
+        mViewModel.loadRecipe();
+
+
+
+
+        // Observer for main Recipe details e.g. name
         mViewModel.mLiveRecipe.observe(getViewLifecycleOwner(), new Observer<RecipeEntity>() {
             @Override
             public void onChanged(RecipeEntity recipeEntity) {

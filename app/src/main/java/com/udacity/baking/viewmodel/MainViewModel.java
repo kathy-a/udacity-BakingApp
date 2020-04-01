@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
-    public MutableLiveData<Integer> recipeId = new MutableLiveData<>();
+    public static int sRecipeId;
 
 
     private final LiveData<List<Recipe>> mRecipeListObservable;
@@ -44,12 +44,9 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = AppRepository.getInstance(application.getApplicationContext());
 
         // TODO: CHECK IF THIS CAN BE USE INSTEAD
-        //mRecipeListObservable = mRepository.getRecipeList();
         mRecipeListObservable = mRepository.getInstance(application.getApplicationContext()).getRecipeList();
 
 
-        //mRecipe = mRepository.mRecipe;
-        //mRecipeList = mRepository.mLocalRecipeList;
     }
 
     //Expose the LiveData Recipe query so the UI can observe it.
@@ -71,16 +68,11 @@ public class MainViewModel extends AndroidViewModel {
 
 
 
-    //Set recipe id
-    public LiveData<Integer> getRecipeId() {
-        return recipeId;
+
+
+    public static void setsRecipeId(int sRecipeId) {
+        MainViewModel.sRecipeId = sRecipeId;
     }
-    public void setRecipeId(int recipeId) {
-        this.recipeId.setValue(recipeId);
-    }
-
-
-
 
     public void addRecipeData(List<Recipe> recipes) {
         mRepository.addRecipeData(recipes);
@@ -88,11 +80,11 @@ public class MainViewModel extends AndroidViewModel {
 
 
     // Get recipe from database
-    public void loadRecipe(final int recipeId) {
+    public void loadRecipe() {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                RecipeEntity recipe = mRepository.getRecipeById(recipeId);
+                RecipeEntity recipe = mRepository.getRecipeById(sRecipeId);
 
                 if (recipe == null){
                     Log.d("load recipe runnable", "recipe null");

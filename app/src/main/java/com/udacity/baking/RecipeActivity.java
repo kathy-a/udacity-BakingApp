@@ -2,22 +2,18 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.fragment.IngredientsFragment;
 import com.udacity.baking.fragment.RecipePageAdapter;
 import com.udacity.baking.fragment.RecipeStepsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.udacity.baking.model.Recipe;
-import com.udacity.baking.utilities.SampleData;
 import com.udacity.baking.viewmodel.MainViewModel;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -68,8 +64,7 @@ public class RecipeActivity extends AppCompatActivity {
             movieId = intent.getIntExtra("recipeId",-1);
             Log.d(TAG, String.valueOf(movieId));
 
-            mViewModel.setRecipeId(movieId);
-
+            MainViewModel.setsRecipeId(movieId);
 
         }else{
             Log.d(TAG, "Intent null");
@@ -84,15 +79,6 @@ public class RecipeActivity extends AppCompatActivity {
         getMovieId();
 
 
-
-        // Check if recipeID was changed
-        mViewModel.recipeId.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer id) {
-                Log.d(TAG, "Movie id: " + id.toString());
-
-            }
-        });
 
     }
 
