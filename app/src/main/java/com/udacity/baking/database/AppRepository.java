@@ -8,11 +8,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.model.Recipe;
+import com.udacity.baking.model.Step;
 import com.udacity.baking.network.RecipeService;
 import com.udacity.baking.network.TheRecipeDbService;
 import com.udacity.baking.utilities.SampleData;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -28,6 +31,7 @@ public class AppRepository {
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
+    private static DatabaseHelper mDbHelper;
 
 
     private List<Recipe> mRecipeList;
@@ -43,6 +47,8 @@ public class AppRepository {
        // mLocalRecipeList = SampleData.getSampleRecipeData();
         //Instantiate to allow db commands
         mDb = AppDatabase.getInstance(context);
+
+        mDbHelper = new DatabaseHelper(mDb);
     }
 
 
@@ -83,7 +89,7 @@ public class AppRepository {
 
     }
 
-
+    // TODO: FUTURE maybe combine the retrofit pojo and database pojo
     public void addRecipeData(List<Recipe> recipes) {
 
         for(int i =0; i < recipes.size(); i++){
@@ -95,13 +101,46 @@ public class AppRepository {
             recipeId = recipes.get(i).getId();
             recipeServings = recipes.get(i).getServings();
 
+            // Setting the main data for recipe
             final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
 
-            executor.execute(new Runnable() {
+
+
+
+            // Convert recipe steps to recipe steps entity
+            List<Step> steps;
+            steps = recipes.get(i).getSteps();
+
+            int stepId;
+            String shortDescription, description, videoURL, thumbnailURL;
+
+            for(int j =0; j < steps.size(); j++) {
+                stepId = steps.get(j).getId();
+                shortDescription = steps.get(j).getShortDescription();
+                description = steps.get(j).getDescription();
+                videoURL = steps.get(j).getVideoURL();
+                thumbnailURL = steps.get(j).getThumbnailURL();
+
+                Log.d("Steps", String.valueOf(stepId));
+                Log.d("Steps", shortDescription);
+                Log.d("Steps", description);
+                Log.d("Steps", videoURL);
+                Log.d("Steps", thumbnailURL);
+
+
+                // Setting Recipe steps
+                RecipeStepsEntity currentStep ;
+                currentStep =  new RecipeStepsEntity(recipeId, stepId, shortDescription, description, videoURL, thumbnailURL);
+                recipe.setSteps(currentStep);
+
+
+            }
+
+            // Insert Recipe in local db
+            executor.execute(new Runnable(){
                 @Override
                 public void run() {
-                    // mDb.recipeDao().insertAll(mLocalRecipeList);
-                    mDb.recipeDao().insertRecipe(recipe);
+                    mDbHelper.saveRecipe(recipe);
                 }
             });
 
@@ -116,5 +155,55 @@ public class AppRepository {
     public RecipeEntity getRecipeById(int recipeId) {
         return mDb.recipeDao().getRecipeById(recipeId);
 
+    }
+
+    public LiveData<List<RecipeStepDetails>> getRecipeSteps() {
+
+
+
+
+        // TODO: FIX THE LOCATION. TEMPORARY SAVING OF 2ND TABLE FOR RECIPE STEPS
+        executor.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                RecipeStepsEntity recipeStepsEntity;
+
+                recipeStepsEntity = new RecipeStepsEntity(1, 2, "Short description", "description", "video URL", "thumbnail URL");
+
+                // TODO FIX AFTER COMBINING TABLES
+/*
+                mDb.recipeDao().saveRecipeSteps(recipeStepsEntity);
+*/
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+        List<RecipeStepDetails> recipeStepDetails;
+
+        //recipeEntity = Objects.requireNonNull(mDb.recipeDao().loadRecipes().getValue()).get(0).getRecipeEntity();
+
+        recipeStepDetails = mDb.recipeDao().loadRecipes().getValue();
+
+       // mDb.recipeDao().loadRecipes().toString();
+
+
+        Log.d("App repo", mDb.recipeDao().loadRecipes().toString());
+
+        RecipeEntity recipeEntity;
+        recipeEntity = recipeStepDetails.get(0).getRecipeEntity();
+
+
+        Log.d("App Repository", recipeEntity.getName());
+
+        return mDb.recipeDao().loadRecipes();
     }
 }

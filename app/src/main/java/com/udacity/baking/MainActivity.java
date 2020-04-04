@@ -2,6 +2,7 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.udacity.baking.database.RecipeEntity;
+import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.viewmodel.MainViewModel;
@@ -53,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         initViewModel();
 
+
+        // TODO CLEAN UP CODE AND POSSIBLY MOVE
+
+/*        LiveData<List<RecipeStepDetails>> recipe ;
+        recipe = mViewModel.getRecipeSteps();
+        Log.d(TAG, "TEST");*/
     }
 
     private void initViewModel() {
@@ -88,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
     private void addRecipeList(List<Recipe> recipes) {
 
         mViewModel.addRecipeData(recipes);
+
+
+
+
+
     }
 
 

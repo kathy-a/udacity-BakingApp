@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.database.AppRepository;
 import com.udacity.baking.database.RecipeEntity;
+import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.model.Recipe;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class MainViewModel extends AndroidViewModel {
     public List<RecipeEntity> mRecipeList;
 
     public MutableLiveData<RecipeEntity> mLiveRecipe =
+            new MutableLiveData<>();
+
+    public MutableLiveData<RecipeEntity> mLocalRecipe =
             new MutableLiveData<>();
 
 
@@ -102,7 +106,12 @@ public class MainViewModel extends AndroidViewModel {
 
 
 
-
+    public LiveData<List<RecipeStepDetails>> getRecipeSteps(){
+/*
+        mLocalRecipe.postValue(mRepository.getRecipeSteps());
+*/
+        return mRepository.getRecipeSteps();
+    }
 
 
 }

@@ -66,7 +66,10 @@ public class RecipeStepsFragment extends Fragment {
         Log.d(TAG, String.valueOf(temp));*/
 
 
+    // TODO: Update the loading of recipe
+/*
         mViewModel.loadRecipe();
+*/
 
 
 
