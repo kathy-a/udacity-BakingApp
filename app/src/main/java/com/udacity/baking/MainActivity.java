@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.database.RecipeStepDetails;
+import com.udacity.baking.database.RecipeStepsEntity;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.viewmodel.MainViewModel;
@@ -57,11 +58,8 @@ public class MainActivity extends AppCompatActivity {
         initViewModel();
 
 
-        // TODO CLEAN UP CODE AND POSSIBLY MOVE
 
-/*        LiveData<List<RecipeStepDetails>> recipe ;
-        recipe = mViewModel.getRecipeSteps();
-        Log.d(TAG, "TEST");*/
+
     }
 
     private void initViewModel() {
@@ -84,11 +82,35 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        //TODO: possibly save data in room db
-        //Log.d(TAG, mViewModel.mRecipeList.get(1).getName());
+        // TODO: check where to put the getting of data
+        // Get recipeStep from DB
+        mViewModel.getRecipeSteps().observe(this, new Observer<List<RecipeStepDetails>>() {
+            @Override
+            public void onChanged(List<RecipeStepDetails> recipeStepDetails) {
+                if(recipeStepDetails != null){
+                    String recipeName;
+                    recipeName = recipeStepDetails.get(0).getRecipeEntity().getName();
+                    Log.d(TAG, recipeName);
 
-        // Add recipeList to local storage
-        //addRecipeList();
+
+                    List<RecipeStepsEntity> recipeSteps = recipeStepDetails.get(0).getSteps();
+
+                    for(int i = 0; i < recipeSteps.size(); i++){
+                        String description;
+                        description = recipeSteps.get(i).getDescription();
+                        Log.d(TAG, description);
+
+                    }
+
+
+
+
+                }else{
+                    Log.d(TAG, "Recipe Step details null");
+                }
+            }
+        });
+
 
 
     }

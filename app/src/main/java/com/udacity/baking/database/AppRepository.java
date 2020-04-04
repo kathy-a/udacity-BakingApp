@@ -121,12 +121,11 @@ public class AppRepository {
                 videoURL = steps.get(j).getVideoURL();
                 thumbnailURL = steps.get(j).getThumbnailURL();
 
-                Log.d("Steps", String.valueOf(stepId));
+/*                Log.d("Steps", String.valueOf(stepId));
                 Log.d("Steps", shortDescription);
                 Log.d("Steps", description);
                 Log.d("Steps", videoURL);
-                Log.d("Steps", thumbnailURL);
-
+                Log.d("Steps", thumbnailURL);*/
 
                 // Setting Recipe steps
                 RecipeStepsEntity currentStep ;
@@ -157,37 +156,20 @@ public class AppRepository {
 
     }
 
+
+
+
+
+
+
+
+
     public LiveData<List<RecipeStepDetails>> getRecipeSteps() {
 
 
 
 
-        // TODO: FIX THE LOCATION. TEMPORARY SAVING OF 2ND TABLE FOR RECIPE STEPS
-        executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                RecipeStepsEntity recipeStepsEntity;
-
-                recipeStepsEntity = new RecipeStepsEntity(1, 2, "Short description", "description", "video URL", "thumbnail URL");
-
-                // TODO FIX AFTER COMBINING TABLES
-/*
-                mDb.recipeDao().saveRecipeSteps(recipeStepsEntity);
-*/
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-        List<RecipeStepDetails> recipeStepDetails;
+        /*List<RecipeStepDetails> recipeStepDetails;
 
         //recipeEntity = Objects.requireNonNull(mDb.recipeDao().loadRecipes().getValue()).get(0).getRecipeEntity();
 
@@ -203,7 +185,7 @@ public class AppRepository {
 
 
         Log.d("App Repository", recipeEntity.getName());
-
+*/
         return mDb.recipeDao().loadRecipes();
     }
 }

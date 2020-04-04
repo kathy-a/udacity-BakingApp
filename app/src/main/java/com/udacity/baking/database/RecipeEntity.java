@@ -48,7 +48,7 @@ public class RecipeEntity {
         this.name = recipeStepDetails.getRecipeEntity().getName();
         this.servings = recipeStepDetails.getRecipeEntity().getServings();
         this.image = recipeStepDetails.getRecipeEntity().getImage();
-        this.steps = this.getSteps();
+        this.steps = recipeStepDetails.getSteps();
 
     }
 

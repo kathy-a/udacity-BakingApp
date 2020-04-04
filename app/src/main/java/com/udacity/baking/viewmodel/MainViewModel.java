@@ -78,6 +78,10 @@ public class MainViewModel extends AndroidViewModel {
         MainViewModel.sRecipeId = sRecipeId;
     }
 
+    /**
+     *  Pass recipe data to app repository method add recipe
+     * @param recipes
+     */
     public void addRecipeData(List<Recipe> recipes) {
         mRepository.addRecipeData(recipes);
     }

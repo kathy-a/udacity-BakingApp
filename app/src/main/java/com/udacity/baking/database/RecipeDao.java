@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface RecipeDao {
 
-
+    // Insert Main recipe detail
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecipe(RecipeEntity recipeEntity);
 
@@ -38,48 +38,19 @@ public interface RecipeDao {
     @Query("SELECT COUNT(*) FROM Recipe")
     int getCount();
 
-
-
-
-
-/*    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // Insert Recipe Steps
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecipeSteps(List<RecipeStepsEntity> recipeStepsEntityList);
-
-
-    @Query("SELECT * FROM RecipeSteps WHERE recipeId = :id")
-    List<RecipeStepsEntity> getRecipeStepsById(int id);*/
-
-/*
-    @Query("SELECT * FROM Recipe WHERE id = :id")
-    RecipeEntity getRecipeById2(int id);
-
-    @Query("SELECT * FROM RecipeSteps WHERE recipeId = :recipeId")
-    List<RecipeStepsEntity> getSteps(int recipeId);
-
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void saveRecipes(List<RecipeEntity> states);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void saveRecipeSteps(List<RecipeStepsEntity>);
-*/
 
 
     @Transaction
     @Query("SELECT * FROM Recipe")
     LiveData<List <RecipeStepDetails>> loadRecipes();
 
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRecipeSteps(List<RecipeStepsEntity> recipeStepsEntityList);
 
 
 
-
-
- /*   @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void saveRecipeSteps(RecipeStepsEntity recipeStepsEntity);
-*/
 
 
 }
