@@ -48,7 +48,7 @@ public class IngredientsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this)
+/*        mViewModel = ViewModelProviders.of(this)
                 .get(MainViewModel.class);
 
 
@@ -57,7 +57,7 @@ public class IngredientsFragment extends Fragment {
             public void onChanged(RecipeEntity recipeEntity) {
 
             }
-        });
+        });*/
 
        // ingredientsView.setText(mViewModel.getRecipe().getValue().getName());
 

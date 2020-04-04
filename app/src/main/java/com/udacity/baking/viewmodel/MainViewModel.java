@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
-    public static int sRecipeId;
+    //public static int sRecipeId;
 
 
     private final LiveData<List<Recipe>> mRecipeListObservable;
@@ -30,8 +30,8 @@ public class MainViewModel extends AndroidViewModel {
     public List<Recipe> mRecipeList2;
     public List<RecipeEntity> mRecipeList;
 
-    public MutableLiveData<RecipeEntity> mLiveRecipe =
-            new MutableLiveData<>();
+/*    public MutableLiveData<RecipeEntity> mLiveRecipe =
+            new MutableLiveData<>();*/
 
     public MutableLiveData<RecipeEntity> mLocalRecipe =
             new MutableLiveData<>();
@@ -74,9 +74,9 @@ public class MainViewModel extends AndroidViewModel {
 
 
 
-    public static void setsRecipeId(int sRecipeId) {
+/*    public static void setsRecipeId(int sRecipeId) {
         MainViewModel.sRecipeId = sRecipeId;
-    }
+    }*/
 
     /**
      *  Pass recipe data to app repository method add recipe
@@ -88,7 +88,7 @@ public class MainViewModel extends AndroidViewModel {
 
 
     // Get recipe from database
-    public void loadRecipe() {
+/*    public void loadRecipe() {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -106,7 +106,7 @@ public class MainViewModel extends AndroidViewModel {
             }
         });
 
-    }
+    }*/
 
 
     /**

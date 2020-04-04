@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.udacity.baking.model.Recipe;
-
 import java.util.List;
 
 @Dao
@@ -25,9 +23,9 @@ public interface RecipeDao {
     @Delete
     void deleteRecipe(RecipeEntity recipeEntity);
 
-
+    @Transaction
     @Query("SELECT * FROM Recipe WHERE id = :id")
-    RecipeEntity getRecipeById(int id);
+    RecipeEntity getRecipeById2(int id);
 
     @Query("SELECT * FROM Recipe")
     LiveData<List<RecipeEntity>> getAll();
@@ -49,6 +47,9 @@ public interface RecipeDao {
     LiveData<List <RecipeStepDetails>> getRecipes();
 
 
+    @Transaction
+    @Query("SELECT * FROM Recipe WHERE id = :id")
+    RecipeStepDetails getRecipeById(int id);
 
 
 

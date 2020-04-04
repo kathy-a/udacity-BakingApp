@@ -148,7 +148,7 @@ public class AppRepository {
 
 
 
-    public RecipeEntity getRecipeById(int recipeId) {
+    public RecipeStepDetails getRecipeById(int recipeId) {
         return mDb.recipeDao().getRecipeById(recipeId);
 
     }

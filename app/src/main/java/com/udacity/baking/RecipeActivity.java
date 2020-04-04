@@ -15,12 +15,13 @@ import com.udacity.baking.fragment.RecipeStepsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.viewmodel.MainViewModel;
+import com.udacity.baking.viewmodel.DetailViewModel;
 
 public class RecipeActivity extends AppCompatActivity {
 
     private RecipePageAdapter mRecipePageAdapter;
     private ViewPager mViewPager;
-    private MainViewModel mViewModel;
+    private DetailViewModel mDetailViewModel;
 
     private static Recipe mRecipeSelected ;
     private static final String TAG = "RecipeActivity";
@@ -35,13 +36,6 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         initViewModel();
-
-
-
-
-
-
-
 
 
         mRecipePageAdapter = new RecipePageAdapter(getSupportFragmentManager()) ;
@@ -64,7 +58,7 @@ public class RecipeActivity extends AppCompatActivity {
             movieId = intent.getIntExtra("recipeId",-1);
             Log.d(TAG, String.valueOf(movieId));
 
-            MainViewModel.setsRecipeId(movieId);
+            DetailViewModel.setsRecipeId(movieId);
 
         }else{
             Log.d(TAG, "Intent null");
@@ -73,12 +67,12 @@ public class RecipeActivity extends AppCompatActivity {
 
 
     private void initViewModel() {
-        mViewModel = ViewModelProviders.of(this)
-                .get(MainViewModel.class);
+        mDetailViewModel = ViewModelProviders.of(this)
+                .get(DetailViewModel.class);
 
         getMovieId();
 
-
+        //mDetailViewModel.loadRecipeSteps();
 
     }
 

@@ -77,10 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        logDisplayRecipe();
-
-
-
+        //logDisplayRecipe();
 
     }
 
