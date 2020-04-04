@@ -109,12 +109,13 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
+    /**
+     * Get recipes from DB
+     * @return recipes
+     */
+    public LiveData<List<RecipeStepDetails>> getRecipes(){
 
-    public LiveData<List<RecipeStepDetails>> getRecipeSteps(){
-/*
-        mLocalRecipe.postValue(mRepository.getRecipeSteps());
-*/
-        return mRepository.getRecipeSteps();
+        return mRepository.getRecipes();
     }
 
 

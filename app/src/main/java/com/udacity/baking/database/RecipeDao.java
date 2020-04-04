@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface RecipeDao {
 
-    // Insert Main recipe detail
+    // Insert Main recipe
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecipe(RecipeEntity recipeEntity);
 
@@ -46,7 +46,7 @@ public interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM Recipe")
-    LiveData<List <RecipeStepDetails>> loadRecipes();
+    LiveData<List <RecipeStepDetails>> getRecipes();
 
 
 

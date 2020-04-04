@@ -2,7 +2,6 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
 import com.udacity.baking.model.Recipe;
@@ -57,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         initViewModel();
 
-
-
-
     }
 
     private void initViewModel() {
@@ -74,22 +69,30 @@ public class MainActivity extends AppCompatActivity {
                         if (recipes != null){
                             initRecyclerView(recipes);
 
+                            // Add recipe to DB
                             addRecipeList(recipes);
-                           // mViewModel.convertRecipeObject(recipes);
 
                         }
                     }
                 }
         );
 
+        logDisplayRecipe();
+
+
+
+
+    }
+
+    private void logDisplayRecipe() {
         // TODO: check where to put the getting of data
         // Get recipeStep from DB
-        mViewModel.getRecipeSteps().observe(this, new Observer<List<RecipeStepDetails>>() {
+        mViewModel.getRecipes().observe(this, new Observer<List<RecipeStepDetails>>() {
             @Override
             public void onChanged(List<RecipeStepDetails> recipeStepDetails) {
                 if(recipeStepDetails != null){
                     String recipeName;
-                    recipeName = recipeStepDetails.get(0).getRecipeEntity().getName();
+                    recipeName = recipeStepDetails.get(1).getRecipeEntity().getName();
                     Log.d(TAG, recipeName);
 
 
@@ -101,17 +104,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, description);
 
                     }
-
-
-
-
                 }else{
                     Log.d(TAG, "Recipe Step details null");
                 }
             }
         });
-
-
 
     }
 
@@ -119,10 +116,6 @@ public class MainActivity extends AppCompatActivity {
     private void addRecipeList(List<Recipe> recipes) {
 
         mViewModel.addRecipeData(recipes);
-
-
-
-
 
     }
 

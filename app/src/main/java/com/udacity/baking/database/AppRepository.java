@@ -11,11 +11,8 @@ import com.udacity.baking.model.Recipe;
 import com.udacity.baking.model.Step;
 import com.udacity.baking.network.RecipeService;
 import com.udacity.baking.network.TheRecipeDbService;
-import com.udacity.baking.utilities.SampleData;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -163,29 +160,8 @@ public class AppRepository {
 
 
 
-
-    public LiveData<List<RecipeStepDetails>> getRecipeSteps() {
-
-
-
-
-        /*List<RecipeStepDetails> recipeStepDetails;
-
-        //recipeEntity = Objects.requireNonNull(mDb.recipeDao().loadRecipes().getValue()).get(0).getRecipeEntity();
-
-        recipeStepDetails = mDb.recipeDao().loadRecipes().getValue();
-
-       // mDb.recipeDao().loadRecipes().toString();
-
-
-        Log.d("App repo", mDb.recipeDao().loadRecipes().toString());
-
-        RecipeEntity recipeEntity;
-        recipeEntity = recipeStepDetails.get(0).getRecipeEntity();
-
-
-        Log.d("App Repository", recipeEntity.getName());
-*/
-        return mDb.recipeDao().loadRecipes();
+    // Get all recipes
+    public LiveData<List<RecipeStepDetails>> getRecipes() {
+        return mDb.recipeDao().getRecipes();
     }
 }

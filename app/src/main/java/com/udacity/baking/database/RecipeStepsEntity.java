@@ -1,5 +1,6 @@
 package com.udacity.baking.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -10,15 +11,17 @@ import com.google.gson.annotations.SerializedName;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "RecipeSteps")
+@Entity(tableName = "RecipeSteps" , primaryKeys = {"recipeId", "step_number"})
 public class RecipeStepsEntity {
 
 
-    @PrimaryKey(autoGenerate = true)
-    private Integer id;
+ /*   @PrimaryKey(autoGenerate = true)
+    private Integer id;*/
 
+    @NonNull
     private Integer recipeId;
 
+    @NonNull
     @ColumnInfo(name = "step_number")
     private Integer stepId;
     private String shortDescription;
@@ -26,13 +29,13 @@ public class RecipeStepsEntity {
     private String videoURL;
     private String thumbnailURL;
 
-    public Integer getId() {
+/*    public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
+    }*/
 
     @ForeignKey
             (entity = RecipeEntity.class,
