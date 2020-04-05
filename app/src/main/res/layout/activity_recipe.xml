@@ -5,9 +5,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+<!--        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/recipe_name"
+            android:textSize="20sp"
+            android:id="@+id/text_recipeName"/>-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_recipe"

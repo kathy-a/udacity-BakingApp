@@ -1,16 +1,21 @@
 package com.udacity.baking.database;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.udacity.baking.model.Ingredient;
 import com.udacity.baking.model.Recipe;
+import com.udacity.baking.model.Step;
 import com.udacity.baking.network.RecipeService;
 import com.udacity.baking.network.TheRecipeDbService;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,46 +25,50 @@ import retrofit2.Response;
 public class AppRepository {
     private static AppRepository instance;
 
-    //private List<Recipe> mRecipeList;
+    // For local storage
+    private AppDatabase mDb;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
-    public static AppRepository getInstance() {
+    private static DatabaseHelper mDbHelper;
+
+
+    private List<Recipe> mRecipeList;
+
+    public static AppRepository getInstance(Context context) {
         if (instance == null) {
-            instance = new AppRepository();
+            instance = new AppRepository(context);
         }
         return instance;
     }
 
-/*    private AppRepository(){
-        mRecipe = SampleData.getSampleRecipeData();
-    }*/
+    private AppRepository(Context context){
+       // mLocalRecipeList = SampleData.getSampleRecipeData();
+        //Instantiate to allow db commands
+        mDb = AppDatabase.getInstance(context);
 
-    // TODO: Retrieving data from a webservice
-/*    public List<Recipe> getRecipe() {
-        //return SampleData.getSampleRecipeData();
-
-        //initRetrofit();
-        // TODO add error handling if response fail
-        return mRecipeList;
-    }*/
+        mDbHelper = new DatabaseHelper(mDb);
+    }
 
 
 
+
+    // Get Recipelist from webservice
     public LiveData<List<Recipe>> getRecipeList(){
         final MutableLiveData<List<Recipe>> recipeData = new MutableLiveData<>();
 
-
-
-        TheRecipeDbService service = RecipeService.getRetrofitInstance().create(TheRecipeDbService.class);
+        final TheRecipeDbService service = RecipeService.getRetrofitInstance().create(TheRecipeDbService.class);
 
         Call <List<Recipe>> call = service.getData();
 
 
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> recipeResponse) {
+                if(recipeResponse.isSuccessful()){
                     Log.d("on Response", "Response Successful");
-                    recipeData.setValue(response.body());
+                    recipeData.setValue(recipeResponse.body());
+
+
                 }else{
                     Log.d("on Response", "Response Fail");
                 }
@@ -74,9 +83,116 @@ public class AppRepository {
         });
 
 
-
         return recipeData;
 
+    }
+
+    // TODO: FUTURE maybe combine the retrofit pojo and database pojo
+    public void addRecipeData(List<Recipe> recipes) {
+
+        for(int i =0; i < recipes.size(); i++){
+            String recipeName, recipeImage;
+            final int recipeId, recipeServings;
+
+            recipeName = recipes.get(i).getName();
+            recipeImage = recipes.get(i).getImage();
+            recipeId = recipes.get(i).getId();
+            recipeServings = recipes.get(i).getServings();
+
+            // Setting the main data for recipe
+            final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
+
+
+            // Convert recipe steps to recipe steps entity
+            List<Step> steps;
+            steps = recipes.get(i).getSteps();
+
+            int stepId;
+            String shortDescription, description, videoURL, thumbnailURL;
+
+            for(int j =0; j < steps.size(); j++) {
+                stepId = steps.get(j).getId();
+                shortDescription = steps.get(j).getShortDescription();
+                description = steps.get(j).getDescription();
+                videoURL = steps.get(j).getVideoURL();
+                thumbnailURL = steps.get(j).getThumbnailURL();
+
+/*                Log.d("Steps", String.valueOf(stepId));
+                Log.d("Steps", shortDescription);
+                Log.d("Steps", description);
+                Log.d("Steps", videoURL);
+                Log.d("Steps", thumbnailURL);*/
+
+                // Setting Recipe steps
+                RecipeStepsEntity currentStep ;
+                currentStep =  new RecipeStepsEntity(recipeId, stepId, shortDescription, description, videoURL, thumbnailURL);
+                recipe.setSteps(currentStep);
+            }
+
+
+            // Convert recipe ingredients to recipe ingredients entity
+            List<Ingredient> ingredients;
+            ingredients = recipes.get(i).getIngredients();
+
+            double quantity;
+            String measure, ingredient;
+
+            for(int j =0; j < ingredients.size(); j++) {
+                quantity = ingredients.get(j).getQuantity();
+                measure = ingredients.get(j).getMeasure();
+                ingredient = ingredients.get(j).getIngredient();
+
+                RecipeIngredientsEntity currentIngredient;
+                currentIngredient = new RecipeIngredientsEntity(recipeId, quantity, measure,  ingredient);
+                recipe.setIngredients(currentIngredient);
+            }
+
+
+
+
+
+            // Insert Recipe in local db
+            executor.execute(new Runnable(){
+                @Override
+                public void run() {
+                    mDbHelper.saveRecipe(recipe);
+                }
+            });
+
+
+        }
+
+    }
+
+
+    /**
+     *
+     * @param recipeId
+     * @return recipe step details to get step details
+     */
+
+    public RecipeStepDetails getRecipeStepsById(int recipeId) {
+        return mDb.recipeDao().getRecipeStepsById(recipeId);
+
+    }
+
+
+    public RecipeIngredientDetails getRecipeIngredientsById(int recipeId) {
+        return mDb.recipeDao().getRecipeIngredientsById(recipeId);
+    }
+
+
+
+
+
+    // Get all recipes steps
+    public LiveData<List<RecipeStepDetails>> getRecipeSteps() {
+        return mDb.recipeDao().getRecipeStepDetails();
+    }
+
+    // Get all recipes ingredients
+    public LiveData<List<RecipeIngredientDetails>> getRecipeIngredients() {
+        return mDb.recipeDao().getRecipeIngredientDetails();
     }
 
 

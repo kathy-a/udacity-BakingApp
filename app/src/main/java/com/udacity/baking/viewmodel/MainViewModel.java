@@ -9,20 +9,35 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.database.AppRepository;
+import com.udacity.baking.database.RecipeEntity;
+import com.udacity.baking.database.RecipeIngredientDetails;
+import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.model.Recipe;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
-    private MutableLiveData<Integer> recipeId = new MutableLiveData<>();
+    //public static int sRecipeId;
 
 
     private final LiveData<List<Recipe>> mRecipeListObservable;
     private AppRepository mRepository;
 
-    public List<Recipe> mRecipeList;
+    public List<Recipe> mRecipeList2;
+    public List<RecipeEntity> mRecipeList;
+
+/*    public MutableLiveData<RecipeEntity> mLiveRecipe =
+            new MutableLiveData<>();*/
+
+    public MutableLiveData<RecipeEntity> mLocalRecipe =
+            new MutableLiveData<>();
+
+
+    private Executor executor = Executors.newSingleThreadExecutor();
 
 
 
@@ -30,13 +45,15 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
 
         // Initalize app repository
-        mRepository = AppRepository.getInstance();
-        mRecipeListObservable = mRepository.getInstance().getRecipeList();
-        //mRecipe = mRepository.mRecipe;
+        mRepository = AppRepository.getInstance(application.getApplicationContext());
+
+        // TODO: CHECK IF THIS CAN BE USE INSTEAD
+        mRecipeListObservable = mRepository.getInstance(application.getApplicationContext()).getRecipeList();
+
+
     }
 
     //Expose the LiveData Recipe query so the UI can observe it.
-
     public LiveData<List<Recipe>> getRecipeListObservable() {
         return mRecipeListObservable;
     }
@@ -54,11 +71,59 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<Integer> getRecipeId() {
-        return recipeId;
+
+
+
+/*    public static void setsRecipeId(int sRecipeId) {
+        MainViewModel.sRecipeId = sRecipeId;
+    }*/
+
+    /**
+     *  Pass recipe data to app repository method add recipe
+     * @param recipes
+     */
+    public void addRecipeData(List<Recipe> recipes) {
+        mRepository.addRecipeData(recipes);
     }
 
-    public void setRecipeId(MutableLiveData<Integer> recipeId) {
-        this.recipeId = recipeId;
+
+    // Get recipe from database
+/*    public void loadRecipe() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                RecipeEntity recipe = mRepository.getRecipeById(sRecipeId);
+
+                if (recipe == null){
+                    Log.d("load recipe runnable", "recipe null");
+
+                }else{
+                    Log.d("load recipe runnable", "recipe found");
+                    mLiveRecipe.postValue(recipe);
+
+                }
+
+            }
+        });
+
+    }*/
+
+
+    /**
+     * Get recipes from DB
+     * @return recipe steps
+     */
+    public LiveData<List<RecipeStepDetails>> getRecipeStepDetails(){
+
+        return mRepository.getRecipeSteps();
+    }
+
+    /**
+     * Get Recipes from db
+     * @return recipe ingredients
+     */
+    public LiveData<List<RecipeIngredientDetails>> getRecipeIngredientDetails() {
+        return mRepository.getRecipeIngredients();
+
     }
 }

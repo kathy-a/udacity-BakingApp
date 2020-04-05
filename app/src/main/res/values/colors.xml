@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">#FEDBD0</color>
     <color name="colorPrimaryDark">#442C2E</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorText">#442C2E</color>
+    <color name="colorAccent">#442C2E</color>
+    <color name="colorBackground">#FEEAE6</color>
+    <color name="colorHeaderText">#A1887F</color>
+    <color name="colorText">#795548</color>
     <color name="colorTitle">#442C2E</color>
 
 

@@ -2,6 +2,7 @@ package com.udacity.baking.utilities;
 
 
 
+import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.model.Ingredient;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.model.Step;
@@ -19,8 +20,8 @@ public class SampleData {
 
 
 
-    public static List<Recipe> getSampleRecipeData() {
-        List<Recipe> recipe = new ArrayList<>();
+    public static List<RecipeEntity> getSampleRecipeData() {
+        List<RecipeEntity> recipe = new ArrayList<>();
 
         List<Ingredient> ingredient1 = new ArrayList<>();
         ingredient1.add(new Ingredient(1, "1/4 cup", "egg"));
@@ -32,9 +33,13 @@ public class SampleData {
         step1.add(new Step(1,"Short description 1", "description1", "video URL", "thumbnail"));
 
 
+        recipe.add(new RecipeEntity(110, SAMPLE_NAME_1,  5, "image string"));
+        recipe.add(new RecipeEntity(200, SAMPLE_NAME_2,  5, "image string"));
 
-        recipe.add(new Recipe(0, SAMPLE_NAME_1, ingredient1, step1, 5, "image string"));
-        recipe.add(new Recipe(0, SAMPLE_NAME_2, ingredient1, step1, 5, "image string"));
+
+
+/*        recipe.add(new Recipe(0, SAMPLE_NAME_1, ingredient1, step1, 5, "image string"));
+        recipe.add(new Recipe(0, SAMPLE_NAME_2, ingredient1, step1, 5, "image string"));*/
 
 
 
