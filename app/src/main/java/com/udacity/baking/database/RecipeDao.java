@@ -59,7 +59,7 @@ public interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM Recipe WHERE id = :id")
-    RecipeStepDetails getRecipeById(int id);
+    RecipeStepDetails getRecipeStepsById(int id);
 
 
 

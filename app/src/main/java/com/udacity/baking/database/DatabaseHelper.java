@@ -16,7 +16,6 @@ public class DatabaseHelper {
         mRecipeDao.insertRecipe(recipeEntity);
         mRecipeDao.insertRecipeSteps(recipeEntity.getSteps());
         mRecipeDao.insertRecipeIngredients(recipeEntity.getIngredients());
-
     }
 
 }

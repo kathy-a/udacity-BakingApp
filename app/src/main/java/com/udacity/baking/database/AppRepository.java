@@ -168,7 +168,7 @@ public class AppRepository {
 
 
     public RecipeStepDetails getRecipeById(int recipeId) {
-        return mDb.recipeDao().getRecipeById(recipeId);
+        return mDb.recipeDao().getRecipeStepsById(recipeId);
 
     }
 

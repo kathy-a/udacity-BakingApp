@@ -81,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         //logDisplayRecipeSteps();
 
-        logDisplayRecipeIngredients();
+        //logDisplayRecipeIngredients();
 
     }
 
 
-
+    // Display recipe steps in log
     private void logDisplayRecipeSteps() {
-        // TODO: check where to put the getting of data
         // Get recipeStep from DB
         mViewModel.getRecipeStepDetails().observe(this, new Observer<List<RecipeStepDetails>>() {
             @Override
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Display recipe ingredients in log
     private void logDisplayRecipeIngredients() {
         mViewModel.getRecipeIngredientDetails().observe(this, new Observer<List<RecipeIngredientDetails>>() {
             @Override
