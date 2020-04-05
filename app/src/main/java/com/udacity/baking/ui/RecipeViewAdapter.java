@@ -61,7 +61,7 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
         //Constructor required for Viewholder
         public ViewHolder(View itemView){
             super(itemView);
-            textFoodName = itemView.findViewById(R.id.text_foodName);
+            textFoodName = itemView.findViewById(R.id.text_recipeName);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             itemView.setOnClickListener(this);
         }
