@@ -41,6 +41,10 @@ public interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecipeSteps(List<RecipeStepsEntity> recipeStepsEntityList);
 
+    // Insert Recipe Ingredients
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertRecipeIngredients(List<RecipeIngredientsEntity> recipeIngredientsEntityList);
 
     @Transaction
     @Query("SELECT * FROM Recipe")

@@ -15,8 +15,6 @@ import static androidx.room.ForeignKey.CASCADE;
 public class RecipeStepsEntity {
 
 
- /*   @PrimaryKey(autoGenerate = true)
-    private Integer id;*/
 
     @NonNull
     private Integer recipeId;
@@ -29,13 +27,6 @@ public class RecipeStepsEntity {
     private String videoURL;
     private String thumbnailURL;
 
-/*    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }*/
 
     @ForeignKey
             (entity = RecipeEntity.class,

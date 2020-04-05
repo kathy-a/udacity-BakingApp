@@ -15,6 +15,7 @@ public class DatabaseHelper {
         Log.d(TAG, "Save recipe");
         mRecipeDao.insertRecipe(recipeEntity);
         mRecipeDao.insertRecipeSteps(recipeEntity.getSteps());
+        mRecipeDao.insertRecipeIngredients(recipeEntity.getIngredients());
 
     }
 

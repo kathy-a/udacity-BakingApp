@@ -24,6 +24,9 @@ public class RecipeEntity {
     @Ignore
     private List<RecipeStepsEntity> steps = null;
 
+    @Ignore
+    private List<RecipeIngredientsEntity> ingredients = null;
+
 
     public RecipeEntity(Integer id, String name, Integer servings, String image) {
         this.id = id;
@@ -43,14 +46,36 @@ public class RecipeEntity {
         this.steps.add(steps);
     }
 
+
+    public List<RecipeIngredientsEntity> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(RecipeIngredientsEntity ingredients) {
+        if(this.ingredients == null){
+            this.ingredients = new ArrayList<>();
+        }
+        this.ingredients.add(ingredients);
+    }
+
     public RecipeEntity(RecipeStepDetails recipeStepDetails){
         this.id = recipeStepDetails.getRecipeEntity().getId();
         this.name = recipeStepDetails.getRecipeEntity().getName();
         this.servings = recipeStepDetails.getRecipeEntity().getServings();
         this.image = recipeStepDetails.getRecipeEntity().getImage();
         this.steps = recipeStepDetails.getSteps();
-
     }
+
+    public RecipeEntity(RecipeIngredientDetails recipeIngredientDetails){
+        this.id = recipeIngredientDetails.getRecipeEntity().getId();
+        this.name = recipeIngredientDetails.getRecipeEntity().getName();
+        this.servings = recipeIngredientDetails.getRecipeEntity().getServings();
+        this.image = recipeIngredientDetails.getRecipeEntity().getImage();
+        this.ingredients = recipeIngredientDetails.getIngredients();
+    }
+
+
+
 
 
     public Integer getId() {

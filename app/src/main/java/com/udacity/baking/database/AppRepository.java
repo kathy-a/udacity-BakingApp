@@ -4,9 +4,11 @@ package com.udacity.baking.database;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.udacity.baking.model.Ingredient;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.model.Step;
 import com.udacity.baking.network.RecipeService;
@@ -102,8 +104,6 @@ public class AppRepository {
             final RecipeEntity recipe = new RecipeEntity(recipeId, recipeName, recipeServings, recipeImage);
 
 
-
-
             // Convert recipe steps to recipe steps entity
             List<Step> steps;
             steps = recipes.get(i).getSteps();
@@ -128,9 +128,29 @@ public class AppRepository {
                 RecipeStepsEntity currentStep ;
                 currentStep =  new RecipeStepsEntity(recipeId, stepId, shortDescription, description, videoURL, thumbnailURL);
                 recipe.setSteps(currentStep);
-
-
             }
+
+            
+            // Convert recipe ingredients to recipe ingredients entity
+            List<Ingredient> ingredients;
+            ingredients = recipes.get(i).getIngredients();
+
+            double quantity;
+            String measure, ingredient;
+
+            for(int j =0; j < ingredients.size(); j++) {
+                quantity = ingredients.get(j).getQuantity();
+                measure = ingredients.get(j).getMeasure();
+                ingredient = ingredients.get(j).getIngredient();
+
+                RecipeIngredientsEntity currentIngredient;
+                currentIngredient = new RecipeIngredientsEntity(recipeId, quantity, measure,  ingredient);
+                recipe.setIngredients(currentIngredient);
+            }
+
+
+
+
 
             // Insert Recipe in local db
             executor.execute(new Runnable(){

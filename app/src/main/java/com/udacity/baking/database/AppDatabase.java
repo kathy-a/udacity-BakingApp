@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 //TODO: Possibly add the other entities
-@Database(entities = {RecipeEntity.class, RecipeStepsEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {RecipeEntity.class, RecipeStepsEntity.class, RecipeIngredientsEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     //.db not required but for easier searching of file
     public static final String DATABASE_NAME = "AppDatabase.db";
