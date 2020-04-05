@@ -70,17 +70,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(List<Recipe> recipes) {
                         if (recipes != null){
                             initRecyclerView(recipes);
-
                             // Add recipe to DB
                             addRecipeList(recipes);
-
                         }
                     }
                 }
         );
 
         //logDisplayRecipeSteps();
-
         //logDisplayRecipeIngredients();
 
     }
@@ -127,11 +124,7 @@ public class MainActivity extends AppCompatActivity {
                        String ingredient;
                        ingredient = recipeIngredients.get(i).getIngredient();
                        Log.d(TAG, "Ingredient: " + ingredient);
-
-
                    }
-
-
                 }else{
                     Log.d(TAG, "Recipe Ingredient details null");
 

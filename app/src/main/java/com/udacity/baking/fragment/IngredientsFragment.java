@@ -1,6 +1,7 @@
 package com.udacity.baking.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,35 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
 import com.udacity.baking.database.RecipeEntity;
+import com.udacity.baking.database.RecipeIngredientDetails;
+import com.udacity.baking.database.RecipeIngredientsEntity;
+import com.udacity.baking.database.RecipeStepDetails;
+import com.udacity.baking.database.RecipeStepsEntity;
 import com.udacity.baking.model.Recipe;
+import com.udacity.baking.ui.IngredientViewAdapter;
+import com.udacity.baking.ui.StepsViewAdapter;
+import com.udacity.baking.viewmodel.DetailViewModel;
 import com.udacity.baking.viewmodel.MainViewModel;
+
+import java.util.List;
 
 
 public class IngredientsFragment extends Fragment {
 
-    private MainViewModel mViewModel;
     private TextView ingredientsView;
+    private DetailViewModel mDetailViewModel;
+    private static final String TAG = "INGREDIENTS FRAGMENT";
 
+    private RecyclerView mRecyclerView;
+    private IngredientViewAdapter mAdapter;
+
+    private View rootView;
 
     public IngredientsFragment() {
     }
@@ -32,13 +50,8 @@ public class IngredientsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Inflate the fragment layout
-        View rootView = inflater.inflate(R.layout.fragment_ingredients, container, false);
+        rootView = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
-        ingredientsView = rootView.findViewById(R.id.text_ingredients);
-
-/*        TextView ingredients = rootView.findViewById(R.id.text_ingredients);
-
-        ingredients.setText("HELLO");*/
 
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
@@ -48,21 +61,51 @@ public class IngredientsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-/*        mViewModel = ViewModelProviders.of(this)
-                .get(MainViewModel.class);
+        mDetailViewModel = ViewModelProviders.of(this)
+                .get(DetailViewModel.class);
 
 
-        mViewModel.mLiveRecipe.observe(getViewLifecycleOwner(), new Observer<RecipeEntity>() {
+        mDetailViewModel.loadRecipeIngredients();
+
+        mDetailViewModel.mLiveRecipeIngredients.observe(getViewLifecycleOwner(), new Observer<RecipeIngredientDetails>() {
             @Override
-            public void onChanged(RecipeEntity recipeEntity) {
+            public void onChanged(RecipeIngredientDetails recipeIngredientDetails) {
+                if(recipeIngredientDetails != null){
+                    Log.d(TAG, "recipeIngredientDetails: " + "recipe found");
 
+                    List<RecipeIngredientsEntity> recipeIngredients = recipeIngredientDetails.getIngredients();
+
+                    // Pass recipe ingredients to recyclerview
+                    initRecyclerView(recipeIngredients);
+
+
+                }else{
+                    Log.d(TAG, "RECIPE NOT FOUND");
+
+                }
             }
-        });*/
-
-       // ingredientsView.setText(mViewModel.getRecipe().getValue().getName());
+        });
 
 
 
+    }
+
+    private void initRecyclerView(List<RecipeIngredientsEntity> recipeIngredients) {
+        mRecyclerView = rootView.findViewById(R.id.recycler_fragment_ingredientSteps);
+        mAdapter = new IngredientViewAdapter(this, recipeIngredients);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeStepsFragment.class));
+
+
+        LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(verticalLayoutManager);
+
+        // Add divider to recyclerview
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                verticalLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }

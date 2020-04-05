@@ -6,10 +6,10 @@
     android:background="@color/colorBackground"
     android:id="@+id/layout_ingredients">
 
-    <TextView
-        android:layout_height="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:text="@string/ingredients"
-        android:textSize="100sp"
-        android:id="@+id/text_ingredients"/>
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_fragment_ingredientSteps" >
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

@@ -165,15 +165,21 @@ public class AppRepository {
     }
 
 
+    /**
+     *
+     * @param recipeId
+     * @return recipe step details to get step details
+     */
 
-
-    public RecipeStepDetails getRecipeById(int recipeId) {
+    public RecipeStepDetails getRecipeStepsById(int recipeId) {
         return mDb.recipeDao().getRecipeStepsById(recipeId);
 
     }
 
 
-
+    public RecipeIngredientDetails getRecipeIngredientsById(int recipeId) {
+        return mDb.recipeDao().getRecipeIngredientsById(recipeId);
+    }
 
 
 
@@ -188,4 +194,6 @@ public class AppRepository {
     public LiveData<List<RecipeIngredientDetails>> getRecipeIngredients() {
         return mDb.recipeDao().getRecipeIngredientDetails();
     }
+
+
 }

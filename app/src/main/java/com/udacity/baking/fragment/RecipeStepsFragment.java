@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,11 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
-import com.udacity.baking.RecipeActivity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
-import com.udacity.baking.model.Recipe;
-import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.ui.StepsViewAdapter;
 import com.udacity.baking.viewmodel.DetailViewModel;
 
@@ -70,23 +66,16 @@ public class RecipeStepsFragment extends Fragment {
 
         // Observer for main Recipe details e.g. name
 
-        mDetailViewModel.mLiveRecipe.observe(getViewLifecycleOwner(), new Observer<RecipeStepDetails>() {
+        mDetailViewModel.mLiveRecipeSteps.observe(getViewLifecycleOwner(), new Observer<RecipeStepDetails>() {
 
             @Override
             public void onChanged(RecipeStepDetails recipeStepDetails) {
                 if(recipeStepDetails != null){
-                    Log.d(TAG, "recipe found");
+                    Log.d(TAG, "recipeStepDetails: " + "recipe found");
 
                     List<RecipeStepsEntity> recipeSteps = recipeStepDetails.getSteps();
 
-                    String shortDescription;
-                    // Sample displaying on step
-/*                    for(int i = 0; i < recipeSteps.size(); i++){
-                        shortDescription = recipeSteps.get(i).getShortDescription();
-                        Log.d(TAG, shortDescription);
-
-                    }*/
-
+                    // Pass recipe steps to recyclerview
                     initRecyclerView(recipeSteps);
 
                 }else{
@@ -114,7 +103,6 @@ public class RecipeStepsFragment extends Fragment {
 
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(verticalLayoutManager);
-
 
         // Add divider to recyclerview
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),

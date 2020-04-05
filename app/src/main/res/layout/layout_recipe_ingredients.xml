@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        style="@style/Heading4"
+        android:id="@+id/text_ingredientName"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/text_ingredient_quantity_measurement"
+        tools:text="@string/recipe_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        style="@style/Heading4"
+        tools:text="@string/recipe_ingredient_measurement"
+        android:textAlignment="textEnd"
+        android:id="@+id/text_ingredient_quantity_measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"/>
+
+
+
+</RelativeLayout>
