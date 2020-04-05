@@ -2,7 +2,6 @@ package com.udacity.baking.viewmodel;
 
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.database.AppRepository;
 import com.udacity.baking.database.RecipeEntity;
+import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.model.Recipe;
 
@@ -111,12 +111,19 @@ public class MainViewModel extends AndroidViewModel {
 
     /**
      * Get recipes from DB
-     * @return recipes
+     * @return recipe steps
      */
-    public LiveData<List<RecipeStepDetails>> getRecipes(){
+    public LiveData<List<RecipeStepDetails>> getRecipeStepDetails(){
 
-        return mRepository.getRecipes();
+        return mRepository.getRecipeSteps();
     }
 
+    /**
+     * Get Recipes from db
+     * @return recipe ingredients
+     */
+    public LiveData<List<RecipeIngredientDetails>> getRecipeIngredientDetails() {
+        return mRepository.getRecipeIngredients();
 
+    }
 }

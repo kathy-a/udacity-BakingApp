@@ -46,9 +46,15 @@ public interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertRecipeIngredients(List<RecipeIngredientsEntity> recipeIngredientsEntityList);
 
+    // Get Recipe Step details
     @Transaction
     @Query("SELECT * FROM Recipe")
-    LiveData<List <RecipeStepDetails>> getRecipes();
+    LiveData<List <RecipeStepDetails>> getRecipeStepDetails();
+
+    // Get Recipe ingredient details
+    @Transaction
+    @Query("SELECT * FROM Recipe")
+    LiveData<List <RecipeIngredientDetails>> getRecipeIngredientDetails();
 
 
     @Transaction

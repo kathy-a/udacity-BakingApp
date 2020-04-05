@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.udacity.baking.database.RecipeIngredientDetails;
+import com.udacity.baking.database.RecipeIngredientsEntity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
 import com.udacity.baking.model.Recipe;
@@ -77,14 +79,18 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        //logDisplayRecipe();
+        //logDisplayRecipeSteps();
+
+        logDisplayRecipeIngredients();
 
     }
 
-    private void logDisplayRecipe() {
+
+
+    private void logDisplayRecipeSteps() {
         // TODO: check where to put the getting of data
         // Get recipeStep from DB
-        mViewModel.getRecipes().observe(this, new Observer<List<RecipeStepDetails>>() {
+        mViewModel.getRecipeStepDetails().observe(this, new Observer<List<RecipeStepDetails>>() {
             @Override
             public void onChanged(List<RecipeStepDetails> recipeStepDetails) {
                 if(recipeStepDetails != null){
@@ -99,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         String description;
                         description = recipeSteps.get(i).getDescription();
                         Log.d(TAG, description);
-
                     }
+
                 }else{
                     Log.d(TAG, "Recipe Step details null");
                 }
@@ -109,11 +115,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void logDisplayRecipeIngredients() {
+        mViewModel.getRecipeIngredientDetails().observe(this, new Observer<List<RecipeIngredientDetails>>() {
+            @Override
+            public void onChanged(List<RecipeIngredientDetails> recipeIngredientDetails) {
+                if(recipeIngredientDetails != null){
+
+                   List<RecipeIngredientsEntity> recipeIngredients = recipeIngredientDetails.get(1).getIngredients();
+
+                   for(int i = 0; i < recipeIngredients.size(); i++){
+                       String ingredient;
+                       ingredient = recipeIngredients.get(i).getIngredient();
+                       Log.d(TAG, "Ingredient: " + ingredient);
+
+
+                   }
+
+
+                }else{
+                    Log.d(TAG, "Recipe Ingredient details null");
+
+                }
+            }
+        });
+    }
+
+
+
     // Add recipe list to local storage
     private void addRecipeList(List<Recipe> recipes) {
-
         mViewModel.addRecipeData(recipes);
-
     }
 
 

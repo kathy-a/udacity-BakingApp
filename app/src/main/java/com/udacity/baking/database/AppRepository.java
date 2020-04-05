@@ -4,7 +4,6 @@ package com.udacity.baking.database;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -130,7 +129,7 @@ public class AppRepository {
                 recipe.setSteps(currentStep);
             }
 
-            
+
             // Convert recipe ingredients to recipe ingredients entity
             List<Ingredient> ingredients;
             ingredients = recipes.get(i).getIngredients();
@@ -180,8 +179,13 @@ public class AppRepository {
 
 
 
-    // Get all recipes
-    public LiveData<List<RecipeStepDetails>> getRecipes() {
-        return mDb.recipeDao().getRecipes();
+    // Get all recipes steps
+    public LiveData<List<RecipeStepDetails>> getRecipeSteps() {
+        return mDb.recipeDao().getRecipeStepDetails();
+    }
+
+    // Get all recipes ingredients
+    public LiveData<List<RecipeIngredientDetails>> getRecipeIngredients() {
+        return mDb.recipeDao().getRecipeIngredientDetails();
     }
 }
