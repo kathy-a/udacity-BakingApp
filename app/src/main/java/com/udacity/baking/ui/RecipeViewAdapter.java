@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
+import com.udacity.baking.StepsActivity;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.RecipeActivity;
 
@@ -68,17 +69,22 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            //Toast.makeText(this, "Food name clicked ", Toast.LENGTH_LONG).show();
             int position = getAdapterPosition();
 
+            // TODO: Uncomment once the video fragment is implemented
+/*
             Class destinationActivity = RecipeActivity.class;
 
             Intent intent = new Intent(mContext, destinationActivity);
 
-
             intent.putExtra("recipeId", mRecipe.get(position).getId());
+*/
 
-            //intent.putExtra("recipe", mRecipe.get(position));
+
+            // TODO: remove temporary activity launch
+            Class destinationActivity = StepsActivity.class;
+
+            Intent intent = new Intent(mContext, destinationActivity);
 
 
             mContext.startActivity(intent);
