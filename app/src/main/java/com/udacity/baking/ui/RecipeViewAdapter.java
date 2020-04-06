@@ -72,19 +72,17 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
             int position = getAdapterPosition();
 
             // TODO: Uncomment once the video fragment is implemented
-/*
             Class destinationActivity = RecipeActivity.class;
 
             Intent intent = new Intent(mContext, destinationActivity);
 
             intent.putExtra("recipeId", mRecipe.get(position).getId());
-*/
 
 
-            // TODO: remove temporary activity launch
+/*            // TODO: remove temporary activity launch
             Class destinationActivity = StepsActivity.class;
 
-            Intent intent = new Intent(mContext, destinationActivity);
+            Intent intent = new Intent(mContext, destinationActivity);*/
 
 
             mContext.startActivity(intent);

@@ -11,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <TextView
-            android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/fragment_video_container"
             android:layout_width="match_parent"
-            android:text="@string/recipe_name"
-            android:textSize="20sp"
-            android:id="@+id/text_recipeName"/>-->
+            android:layout_height="200dp"
+            android:scaleType="centerInside"
+            android:background="@color/colorBackground"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_recipe"
