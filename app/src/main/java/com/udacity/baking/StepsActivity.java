@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.udacity.baking.fragment.VideoFragment;
 
 public class StepsActivity extends AppCompatActivity {
 
@@ -39,14 +40,29 @@ public class StepsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps);
 
-        playerView = findViewById(R.id.video_view);
+
+        // Only create new fragments when there is no previously saved state
+        if(savedInstanceState == null) {
+            VideoFragment videoFragment = new VideoFragment();
+
+            // Add the fragment to its container using a FragmentManager and a Transaction
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_video_container, videoFragment)
+                    .commit();
+
+        }
+
+
+       // playerView = findViewById(R.id.video_view);
 
 
 
 
     }
 
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
@@ -118,6 +134,6 @@ public class StepsActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-    }
+    }*/
 
 }
