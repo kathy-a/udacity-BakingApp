@@ -2,6 +2,7 @@ package com.udacity.baking.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
     private RecipeStepsFragment mContext;
     private List<RecipeStepsEntity> mRecipeSteps;
     private static final String TAG = "StepViewAdapter";
+    private int index = -1;
 
 
     public StepsViewAdapter(RecipeStepsFragment mContext, List<RecipeStepsEntity> mRecipeSteps) {
@@ -45,6 +47,16 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String recipeDescription = mRecipeSteps.get(position).getDescription();
         holder.textRecipeDescription.setText(recipeDescription);
+
+        // Change item background color
+        if(index==position){
+            holder.textRecipeDescription.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        }else{
+            holder.textRecipeDescription.setBackgroundColor(Color.parseColor("#FEEAE6"));
+
+        }
+
     }
 
     @Override
@@ -71,6 +83,8 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
             int position = getAdapterPosition();
             Log.d(TAG, String.valueOf(position));
 
+            index = position;
+            notifyDataSetChanged();
         }
     }
 

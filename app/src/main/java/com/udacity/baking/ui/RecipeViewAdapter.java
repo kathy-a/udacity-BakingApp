@@ -46,6 +46,10 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String recipeName = mRecipe.get(position).getName();
         holder.textFoodName.setText(recipeName);
+
+
+
+
     }
 
     // Required for RecyclerView
