@@ -61,9 +61,17 @@ public class IngredientsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initViewMode();
+
+
+
+
+
+    }
+
+    private void initViewMode() {
         mDetailViewModel = ViewModelProviders.of(this)
                 .get(DetailViewModel.class);
-
 
         mDetailViewModel.loadRecipeIngredients();
 
@@ -86,9 +94,8 @@ public class IngredientsFragment extends Fragment {
             }
         });
 
-
-
     }
+
 
     private void initRecyclerView(List<RecipeIngredientsEntity> recipeIngredients) {
         mRecyclerView = rootView.findViewById(R.id.recycler_fragment_ingredientSteps);

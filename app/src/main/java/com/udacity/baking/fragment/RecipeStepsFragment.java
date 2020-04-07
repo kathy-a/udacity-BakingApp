@@ -56,16 +56,19 @@ public class RecipeStepsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        initViewModel();
+
+
+     }
+
+    private void initViewModel() {
         mDetailViewModel = ViewModelProviders.of(this)
                 .get(DetailViewModel.class);
-
-
 
         mDetailViewModel.loadRecipeSteps();
 
 
         // Observer for main Recipe details e.g. name
-
         mDetailViewModel.mLiveRecipeSteps.observe(getViewLifecycleOwner(), new Observer<RecipeStepDetails>() {
 
             @Override
@@ -85,14 +88,7 @@ public class RecipeStepsFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-     }
+    }
 
 
     private void initRecyclerView(List<RecipeStepsEntity> recipeSteps) {
