@@ -30,7 +30,7 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
     private List<RecipeStepsEntity> mRecipeSteps;
     private static final String TAG = "StepViewAdapter";
     //private static int index = -1;
-    private static int index = 0;
+    public static int index = 0;
 
     private ViewHolder.OnStepListener mOnStepListener;
 

@@ -82,12 +82,8 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
 
             intent.putExtra("recipeId", mRecipe.get(position).getId());
 
-
-/*            // TODO: remove temporary activity launch
-            Class destinationActivity = StepsActivity.class;
-
-            Intent intent = new Intent(mContext, destinationActivity);*/
-
+            // Set default step position to 0 / first item;
+            StepsViewAdapter.index = 0;
 
             mContext.startActivity(intent);
 
