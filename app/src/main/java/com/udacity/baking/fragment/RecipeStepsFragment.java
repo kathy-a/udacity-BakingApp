@@ -83,6 +83,9 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
                     // Pass recipe steps to recyclerview
                     initRecyclerView(recipeSteps);
 
+                    // Set default video to be the first step
+                    selectRecipeStep(0);
+
                 }else{
                     Log.d(TAG, "RECIPE NOT FOUND");
 
@@ -126,7 +129,6 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
         // TODO: HANDLING OF empty video url and empty thumbnail or no video at all
 
-        //mDetailViewModel.setStepVideoURL("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4");
 
         mDetailViewModel.setStepVideoURL(videoUrl);
 

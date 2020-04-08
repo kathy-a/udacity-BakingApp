@@ -35,6 +35,8 @@ public class VideoFragment extends Fragment {
     private PlayerView playerView;
     private SimpleExoPlayer player;
     private boolean playWhenReady = true;
+    //private boolean playWhenReady = false;
+
     private int currentWindow = 0;
     private long playbackPosition = 0;
 
@@ -42,6 +44,7 @@ public class VideoFragment extends Fragment {
     private DetailViewModel mDetailViewModel;
     private static final String TAG = "VIDEO FRAGMENT";
     private String mVideoURL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4";
+    //private String mVideoURL;
 
 
     public VideoFragment() {
@@ -57,16 +60,8 @@ public class VideoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-/*        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video, container, false);*/
 
-
-        // Inflate the fragment layout
         rootView = inflater.inflate(R.layout.fragment_video, container, false);
-
-        playerView = rootView.findViewById(R.id.video_view);
-
-
 
         return rootView;
 
@@ -77,8 +72,9 @@ public class VideoFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         initViewModel();
+
+        playerView = rootView.findViewById(R.id.video_view);
 
 
 
@@ -88,24 +84,6 @@ public class VideoFragment extends Fragment {
         mDetailViewModel = ViewModelProviders.of(this)
                 .get(DetailViewModel.class);
 
-        // TODO: CHECK if there's other way to initialize first step loaded
-        mDetailViewModel.mLiveRecipeSteps.observe(getViewLifecycleOwner(), new Observer<RecipeStepDetails>() {
-
-            @Override
-            public void onChanged(RecipeStepDetails recipeStepDetails) {
-                if(recipeStepDetails != null){
-                    Log.d(TAG, "recipeStepDetails: " + "recipe found");
-
-                    List<RecipeStepsEntity> recipeSteps = recipeStepDetails.getSteps();
-                    mVideoURL = recipeSteps.get(0).getVideoURL();
-
-                }else{
-                    Log.d(TAG, "RECIPE NOT FOUND");
-
-                }
-
-            }
-        });
 
         // Observer of new Video URL
         DetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -113,19 +91,24 @@ public class VideoFragment extends Fragment {
             public void onChanged(String urlString) {
                 Log.d(TAG, "onChanged: videoURL: " + urlString);
                 mVideoURL = urlString;
+
                 initializePlayer();
+
+                // TODO: Maybe check in here if URL is available?
+
+                playerView.setVisibility(View.VISIBLE);
             }
         });
 
     }
 
-    @Override
+/*    @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
             initializePlayer();
         }
-    }
+    }*/
 
     @Override
     public void onResume() {
@@ -153,16 +136,15 @@ public class VideoFragment extends Fragment {
     }
 
     private void initializePlayer() {
-        player = ExoPlayerFactory.newSimpleInstance(getContext());
-        playerView.setPlayer(player);
+        if (player == null){
+            player = ExoPlayerFactory.newSimpleInstance(getContext());
+            playerView.setPlayer(player);
 
-       // Uri uri = Uri.parse("https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4");
+        }
+
         Uri uri = Uri.parse(mVideoURL);
 
-
-        //Uri uri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd9a6_2-mix-sugar-crackers-creampie/2-mix-sugar-crackers-creampie.mp4");
         MediaSource mediaSource = buildMediaSource(uri);
-
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
         player.prepare(mediaSource, false, false);
