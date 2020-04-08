@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 public class DetailViewModel extends AndroidViewModel {
 
     public static int sRecipeId;
+    public static int sRecipeStep;
     private AppRepository mRepository;
     private Executor executor = Executors.newSingleThreadExecutor();
     private static final String TAG = "Detail View Model";
@@ -31,6 +32,10 @@ public class DetailViewModel extends AndroidViewModel {
         super(application);
         mRepository = AppRepository.getInstance(application.getApplicationContext());
 
+    }
+
+    public static void setsRecipeStep(int sRecipeStep) {
+        DetailViewModel.sRecipeStep = sRecipeStep;
     }
 
     /**

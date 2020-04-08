@@ -26,7 +26,7 @@ import com.udacity.baking.viewmodel.DetailViewModel;
 import java.util.List;
 
 
-public class RecipeStepsFragment extends Fragment {
+public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.ViewHolder.OnStepListener {
 
     private DetailViewModel mDetailViewModel;
     private TextView recipeStepsView;
@@ -93,7 +93,7 @@ public class RecipeStepsFragment extends Fragment {
 
     private void initRecyclerView(List<RecipeStepsEntity> recipeSteps) {
         mRecyclerView = rootView.findViewById(R.id.recycler_fragment_recipeSteps);
-        mAdapter = new StepsViewAdapter(this, recipeSteps);
+        mAdapter = new StepsViewAdapter(this, recipeSteps,this);
        //mRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeStepsFragment.class));
 
 
@@ -110,5 +110,10 @@ public class RecipeStepsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStepClick(int position) {
+        Log.d(TAG, "onStepClick: " + String.valueOf(position));
+        mAdapter.notifyDataSetChanged();
+    }
 }
 
