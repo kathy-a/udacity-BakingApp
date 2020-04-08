@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.udacity.baking.database.AppRepository;
@@ -27,11 +28,20 @@ public class DetailViewModel extends AndroidViewModel {
     public MutableLiveData<RecipeIngredientDetails> mLiveRecipeIngredients =
             new MutableLiveData<>();
 
+    public static MutableLiveData<String> sVideoURL = new MutableLiveData<>();
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
         mRepository = AppRepository.getInstance(application.getApplicationContext());
 
+    }
+
+    public static LiveData<String> getsVideoURL() {
+        return sVideoURL;
+    }
+
+    public void setStepVideoURL(String videoURL) {
+        sVideoURL.setValue(videoURL);
     }
 
     public static void setsRecipeStep(int sRecipeStep) {

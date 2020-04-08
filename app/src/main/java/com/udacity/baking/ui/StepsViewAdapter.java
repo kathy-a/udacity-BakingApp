@@ -89,11 +89,8 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
         public void onClick(View v) {
             int position = getAdapterPosition();
            // Log.d(TAG, String.valueOf(position));
-
             index = position;
-
             onStepListener.onStepClick(position);
-            //DetailViewModel.setsRecipeStep(position);
         }
 
         public interface OnStepListener{

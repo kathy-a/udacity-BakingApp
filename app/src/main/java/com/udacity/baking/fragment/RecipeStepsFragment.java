@@ -33,6 +33,7 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
     private RecyclerView mRecyclerView;
     private StepsViewAdapter mAdapter;
+    private List<RecipeStepsEntity> recipeSteps;
     View rootView;
 
     private static final String TAG = "STEPS FRAGMENT";
@@ -58,7 +59,8 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
         initViewModel();
 
-
+        // TODO: Possibly add the call to the select recipe
+        //selectRecipeStep(0);
      }
 
     private void initViewModel() {
@@ -70,14 +72,14 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
         // Observer for main Recipe details e.g. name
         mDetailViewModel.mLiveRecipeSteps.observe(getViewLifecycleOwner(), new Observer<RecipeStepDetails>() {
-
             @Override
             public void onChanged(RecipeStepDetails recipeStepDetails) {
                 if(recipeStepDetails != null){
                     Log.d(TAG, "recipeStepDetails: " + "recipe found");
 
-                    List<RecipeStepsEntity> recipeSteps = recipeStepDetails.getSteps();
+                     recipeSteps = recipeStepDetails.getSteps();
 
+                    //Log.d(TAG, "onChanged: " + recipeSteps.get(0).getVideoURL());
                     // Pass recipe steps to recyclerview
                     initRecyclerView(recipeSteps);
 
@@ -114,6 +116,29 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
     public void onStepClick(int position) {
         Log.d(TAG, "onStepClick: " + String.valueOf(position));
         mAdapter.notifyDataSetChanged();
+
+        selectRecipeStep(position);
     }
+
+    private void selectRecipeStep(final int position) {
+        String videoUrl;
+        videoUrl = recipeSteps.get(position).getVideoURL();
+
+        // TODO: HANDLING OF empty video url and empty thumbnail or no video at all
+
+        //mDetailViewModel.setStepVideoURL("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4");
+
+        mDetailViewModel.setStepVideoURL(videoUrl);
+
+
+        mDetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String urlString) {
+                Log.d(TAG, "onChanged of URL position:" + String.valueOf(position) + " " +  urlString);
+            }
+        });
+    }
+
+
 }
 
