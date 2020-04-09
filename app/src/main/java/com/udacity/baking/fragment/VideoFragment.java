@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -41,10 +42,11 @@ public class VideoFragment extends Fragment {
     private long playbackPosition = 0;
 
     private View rootView;
+    private ImageView imageView;
     private DetailViewModel mDetailViewModel;
     private static final String TAG = "VIDEO FRAGMENT";
-    private String mVideoURL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4";
-    //private String mVideoURL;
+    //private String mVideoURL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4";
+    private String mVideoURL = "video.com";
 
 
     public VideoFragment() {
@@ -75,6 +77,7 @@ public class VideoFragment extends Fragment {
         initViewModel();
 
         playerView = rootView.findViewById(R.id.video_view);
+        imageView = rootView.findViewById(R.id.image_view);
 
 
 
@@ -92,23 +95,32 @@ public class VideoFragment extends Fragment {
                 Log.d(TAG, "onChanged: videoURL: " + urlString);
                 mVideoURL = urlString;
 
-                initializePlayer();
+                // Don't play video if URL is empty
+                if(urlString.isEmpty()){
+                    Log.d(TAG, "onChanged: URL EMPTY");
+                    playerView.setVisibility(View.GONE);
+                    imageView.setVisibility(View.VISIBLE);
+                    releasePlayer();
+                }else{
+                    Log.d(TAG, "onChanged: urlString is NOT empty");
+                    initializePlayer();
+                    playerView.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.GONE);
+                }
 
-                // TODO: Maybe check in here if URL is available?
 
-                playerView.setVisibility(View.VISIBLE);
             }
         });
 
     }
 
-/*    @Override
+    @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
             initializePlayer();
         }
-    }*/
+    }
 
     @Override
     public void onResume() {

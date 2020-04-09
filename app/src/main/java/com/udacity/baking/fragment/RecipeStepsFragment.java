@@ -77,6 +77,7 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
                 if(recipeStepDetails != null){
                     Log.d(TAG, "recipeStepDetails: " + "recipe found");
 
+
                      recipeSteps = recipeStepDetails.getSteps();
 
                     //Log.d(TAG, "onChanged: " + recipeSteps.get(0).getVideoURL());
@@ -127,7 +128,10 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
         String videoUrl;
         videoUrl = recipeSteps.get(position).getVideoURL();
 
-        // TODO: HANDLING OF empty video url and empty thumbnail or no video at all
+        // If video URL is empty, assign thumbnail url regardless if it's empty as well
+        if(videoUrl.isEmpty()){
+            videoUrl = recipeSteps.get(position).getThumbnailURL();
+        }
 
 
         mDetailViewModel.setStepVideoURL(videoUrl);

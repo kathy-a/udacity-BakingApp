@@ -81,6 +81,7 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
             Intent intent = new Intent(mContext, destinationActivity);
 
             intent.putExtra("recipeId", mRecipe.get(position).getId());
+            intent.putExtra("recipeName", mRecipe.get(position).getName());
 
             // Set default step position to 0 / first item;
             StepsViewAdapter.index = 0;
