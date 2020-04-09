@@ -2,6 +2,7 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,8 +14,8 @@ import com.udacity.baking.fragment.IngredientsFragment;
 import com.udacity.baking.fragment.RecipePageAdapter;
 import com.udacity.baking.fragment.RecipeStepsFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.udacity.baking.fragment.VideoFragment;
 import com.udacity.baking.model.Recipe;
-import com.udacity.baking.viewmodel.MainViewModel;
 import com.udacity.baking.viewmodel.DetailViewModel;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class RecipeActivity extends AppCompatActivity {
 
     private static Recipe mRecipeSelected ;
     private static final String TAG = "RecipeActivity";
-    private int movieId;
+    private int recipeId;
 
 
 
@@ -47,6 +48,20 @@ public class RecipeActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs_recipe);
         tabLayout.setupWithViewPager(mViewPager);
 
+
+        // Only create new fragments when there is no previously saved state
+        if(savedInstanceState == null) {
+            VideoFragment videoFragment = new VideoFragment();
+
+            // Add the fragment to its container using a FragmentManager and a Transaction
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_video_container, videoFragment)
+                    .commit();
+        }
+
+
     }
 
 
@@ -55,10 +70,14 @@ public class RecipeActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent != null){
-            movieId = intent.getIntExtra("recipeId",-1);
-            Log.d(TAG, String.valueOf(movieId));
+            recipeId = intent.getIntExtra("recipeId",-1);
+            Log.d(TAG, String.valueOf(recipeId));
 
-            DetailViewModel.setsRecipeId(movieId);
+            DetailViewModel.setsRecipeId(recipeId);
+            String recipeName = intent.getStringExtra("recipeName");
+
+            // Set title of activity
+            setTitle(recipeName);
 
         }else{
             Log.d(TAG, "Intent null");
@@ -72,7 +91,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         getMovieId();
 
-        //mDetailViewModel.loadRecipeSteps();
 
     }
 
