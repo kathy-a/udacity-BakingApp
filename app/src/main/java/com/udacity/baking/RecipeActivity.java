@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,39 +29,100 @@ public class RecipeActivity extends AppCompatActivity {
     private static Recipe mRecipeSelected ;
     private static final String TAG = "RecipeActivity";
     private int recipeId;
+    public static boolean sIsTablet;
 
 
 
-
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
+        // Initialize fragment details so it can be reused on small & big screens
+        VideoFragment videoFragment = new VideoFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+
+        /**
+         *  Adjust layout of recipe details depending on screen size
+         */
+        // Set device orientation supported
+        boolean allowRotation = getResources().getBoolean(R.bool.portrait_only);
+        if(allowRotation){             // For smaller screens
+
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+            /**
+             * Setup the tab layout 
+             */
+            mRecipePageAdapter = new RecipePageAdapter(getSupportFragmentManager()) ;
+
+            // Set up the ViewPager with the recipe adapter
+            mViewPager = findViewById(R.id.view_pager_container);
+            setupViewPage(mViewPager);
+
+            TabLayout tabLayout = findViewById(R.id.tabs_recipe);
+            tabLayout.setupWithViewPager(mViewPager);
+
+
+            if(savedInstanceState == null) {
+                // Add the fragment to its container using a FragmentManager and a Transaction
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_video_container, videoFragment)
+                        .commit();
+            }
+
+
+        }else{ // For larger screens
+
+            sIsTablet = true;
+
+            // Only create new fragments when there is no previously saved state
+            if(savedInstanceState == null) {
+                RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
+
+                // Add the fragment to its container using a FragmentManager and a Transaction
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_video_container, videoFragment)
+                        .add(R.id.fragment_recipeSteps_container, stepsFragment)
+                        .commit();
+            }
+
+        }
+
+
+
+
+
+
+
+        // Check if the layout is for larger screen
+/*
+        mTablet = findViewById(R.id.layout_largerScreen) != null;
+*/
+
+/*        if(findViewById(R.id.layout_largerScreen) != null){
+            sIsTablet = true;
+        }else{
+            sIsTablet = false;
+
+
+
+        }*/
+
+
+
+
         initViewModel();
 
 
-        mRecipePageAdapter = new RecipePageAdapter(getSupportFragmentManager()) ;
-
-        // Set up the ViewPager with the recipe adapter
-        mViewPager = findViewById(R.id.view_pager_container);
-        setupViewPage(mViewPager);
-
-        TabLayout tabLayout = findViewById(R.id.tabs_recipe);
-        tabLayout.setupWithViewPager(mViewPager);
 
 
-        // Only create new fragments when there is no previously saved state
-        if(savedInstanceState == null) {
-            VideoFragment videoFragment = new VideoFragment();
 
-            // Add the fragment to its container using a FragmentManager and a Transaction
-            FragmentManager fragmentManager = getSupportFragmentManager();
 
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragment_video_container, videoFragment)
-                    .commit();
-        }
 
 
     }

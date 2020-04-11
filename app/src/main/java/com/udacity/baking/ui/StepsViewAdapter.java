@@ -24,6 +24,8 @@ import com.udacity.baking.viewmodel.DetailViewModel;
 
 import java.util.List;
 
+import static com.udacity.baking.RecipeActivity.sIsTablet;
+
 public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.ViewHolder> {
 
     private RecipeStepsFragment mContext;
@@ -51,7 +53,17 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String recipeDescription = mRecipeSteps.get(position).getDescription();
+        String recipeDescription;
+
+        // If device is tablet / bigger screen, display shorter description in the recyclerview
+        if(sIsTablet){
+            recipeDescription = mRecipeSteps.get(position).getShortDescription();
+        }else{
+            recipeDescription = mRecipeSteps.get(position).getDescription();
+        }
+
+
+
         holder.textRecipeDescription.setText(recipeDescription);
 
         // Change item background color

@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
@@ -28,19 +32,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     private MainViewModel mViewModel;
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*        RecipeFragment ingredientFragment = new RecipeFragment();
+        // Set device orientation supported
+        boolean allowRotation = getResources().getBoolean(R.bool.portrait_only);
+        if(allowRotation){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
-        // Add the fragment to its container using the FragmentManager and a transaction
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction()
-                .add(R.id.frame_ingredients_container,ingredientFragment)
-                .commit();*/
+
+
 
         // TODO: remove temporary placeholder
 /*        final Button button = findViewById(R.id.button_id);
@@ -57,7 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
         initViewModel();
 
+
+
     }
+
+
+
 
     private void initViewModel() {
         // set the reference for view model
