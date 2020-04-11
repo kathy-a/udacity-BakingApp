@@ -120,14 +120,14 @@ public class VideoFragment extends Fragment {
         }
     }
 
-    @Override
+/*    @Override
     public void onResume() {
         super.onResume();
         //hideSystemUi();
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
-    }
+    }*/
 
     @Override
     public void onPause() {

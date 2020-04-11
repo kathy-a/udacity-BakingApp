@@ -47,8 +47,6 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
         // Inflate the fragment layout
         rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
-        //recipeStepsView = rootView.findViewById(R.id.text_recipeSteps);
-
 
         return rootView;
     }
@@ -59,8 +57,7 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
         initViewModel();
 
-        // TODO: Possibly add the call to the select recipe
-        //selectRecipeStep(0);
+
      }
 
     private void initViewModel() {

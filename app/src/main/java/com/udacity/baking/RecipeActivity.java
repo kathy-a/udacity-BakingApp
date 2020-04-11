@@ -2,6 +2,8 @@ package com.udacity.baking;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -11,6 +13,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.udacity.baking.fragment.IngredientsFragment;
 import com.udacity.baking.fragment.RecipePageAdapter;
@@ -31,6 +38,7 @@ public class RecipeActivity extends AppCompatActivity {
     private static final String TAG = "RecipeActivity";
     private int recipeId;
     public static boolean sIsTablet;
+    private DrawerLayout mDrawer;
 
 
 
@@ -39,6 +47,9 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
+
+
+
 
         // Initialize fragment details so it can be reused on small & big screens
         VideoFragment videoFragment = new VideoFragment();
@@ -81,18 +92,25 @@ public class RecipeActivity extends AppCompatActivity {
 
             sIsTablet = true;
 
+            //Drawer layout style
+            mDrawer = findViewById(R.id.drawer_layout);
+
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
                 RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
                 SelectedStepFragment selectedStepFragment = new SelectedStepFragment();
+                IngredientsFragment ingredientsFragment = new IngredientsFragment();
 
                 // Add the fragment to its container using a FragmentManager and a Transaction
                 fragmentManager.beginTransaction()
                         .add(R.id.fragment_video_container, videoFragment)
                         .add(R.id.fragment_recipeSteps_container, stepsFragment)
                         .add(R.id.fragment_step_selected_container, selectedStepFragment)
+                        .add(R.id.nav_view, ingredientsFragment)
                         .commit();
+
             }
+
 
         }
 
@@ -113,6 +131,28 @@ public class RecipeActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    // Display Menu layout created
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(sIsTablet){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_category, menu);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Open the drawer for ingredients for larger screens
+        mDrawer.openDrawer(GravityCompat.END);
+        return true;
     }
 
 
