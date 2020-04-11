@@ -16,6 +16,7 @@ import com.udacity.baking.fragment.IngredientsFragment;
 import com.udacity.baking.fragment.RecipePageAdapter;
 import com.udacity.baking.fragment.RecipeStepsFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.udacity.baking.fragment.SelectedStepFragment;
 import com.udacity.baking.fragment.VideoFragment;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.viewmodel.DetailViewModel;
@@ -83,11 +84,13 @@ public class RecipeActivity extends AppCompatActivity {
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
                 RecipeStepsFragment stepsFragment = new RecipeStepsFragment();
+                SelectedStepFragment selectedStepFragment = new SelectedStepFragment();
 
                 // Add the fragment to its container using a FragmentManager and a Transaction
                 fragmentManager.beginTransaction()
                         .add(R.id.fragment_video_container, videoFragment)
                         .add(R.id.fragment_recipeSteps_container, stepsFragment)
+                        .add(R.id.fragment_step_selected_container, selectedStepFragment)
                         .commit();
             }
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.udacity.baking.database.AppRepository;
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeStepDetails;
+import com.udacity.baking.model.Recipe;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -30,19 +31,48 @@ public class DetailViewModel extends AndroidViewModel {
 
     public static MutableLiveData<String> sVideoURL = new MutableLiveData<>();
 
+    public static MutableLiveData<String> sStepSelected = new MutableLiveData<>();
+
+
+
+
+
+
+
     public DetailViewModel(@NonNull Application application) {
         super(application);
         mRepository = AppRepository.getInstance(application.getApplicationContext());
 
     }
 
+    /**
+     * @return Recipe step selected
+     */
+    public static LiveData<String> getsStepSelected() {
+        return sStepSelected;
+    }
+
+    public void setsStepSelected(String step) {
+        sStepSelected.setValue(step);
+    }
+
+
+
+    /**
+     *
+     * @return Video URL currently set
+     */
     public static LiveData<String> getsVideoURL() {
         return sVideoURL;
     }
-
     public void setStepVideoURL(String videoURL) {
         sVideoURL.setValue(videoURL);
     }
+
+
+
+
+
 
     public static void setsRecipeStep(int sRecipeStep) {
         DetailViewModel.sRecipeStep = sRecipeStep;

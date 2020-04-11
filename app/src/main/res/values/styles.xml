@@ -25,4 +25,8 @@
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
+    <style name="Heading3" parent="Heading4">
+        <item name="android:textSize">@dimen/heading_3_size</item>
+    </style>
+
 </resources>

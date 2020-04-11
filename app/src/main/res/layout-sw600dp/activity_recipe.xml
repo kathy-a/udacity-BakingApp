@@ -15,6 +15,10 @@
         android:scaleType="centerInside"
         android:background="@color/colorBackground"/>
 
+    <View
+        android:layout_width="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,16 +29,20 @@
         <FrameLayout
             android:id="@+id/fragment_video_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_height="0dp"
             android:scaleType="centerInside"
             android:background="@color/colorBackground"/>
 
-        <TextView
-            android:id="@+id/text_recipeStep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Heading4"
-            android:text="@string/recipe_steps" />
+        <FrameLayout
+            android:id="@+id/fragment_step_selected_container"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            android:background="@color/colorBackground"/>
+
+
     </LinearLayout>
 
 

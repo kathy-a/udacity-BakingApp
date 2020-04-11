@@ -125,8 +125,9 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
     }
 
     private void selectRecipeStep(final int position) {
-        String videoUrl;
+        String videoUrl, step;
         videoUrl = recipeSteps.get(position).getVideoURL();
+        step = recipeSteps.get(position).getDescription();
 
         // If video URL is empty, assign thumbnail url regardless if it's empty as well
         if(videoUrl.isEmpty()){
@@ -135,6 +136,8 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
 
         mDetailViewModel.setStepVideoURL(videoUrl);
+
+        mDetailViewModel.setsStepSelected(step);
 
 
         mDetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
