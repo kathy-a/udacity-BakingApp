@@ -3,7 +3,10 @@ package com.udacity.baking.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,6 +55,7 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
         return holder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String recipeDescription;
@@ -58,11 +63,11 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
         // If device is tablet / bigger screen, display shorter description in the recyclerview
         if(sIsTablet){
             recipeDescription = mRecipeSteps.get(position).getShortDescription();
+            holder.textRecipeDescription.setJustificationMode(Layout.JUSTIFICATION_MODE_NONE);
+            holder.textRecipeDescription.setGravity(Gravity.START);
         }else{
             recipeDescription = mRecipeSteps.get(position).getDescription();
         }
-
-
 
         holder.textRecipeDescription.setText(recipeDescription);
 

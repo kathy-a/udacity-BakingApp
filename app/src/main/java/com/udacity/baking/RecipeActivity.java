@@ -56,7 +56,7 @@ public class RecipeActivity extends AppCompatActivity {
 
 
             /**
-             * Setup the tab layout 
+             * Setup the tab layout
              */
             mRecipePageAdapter = new RecipePageAdapter(getSupportFragmentManager()) ;
 
@@ -97,21 +97,6 @@ public class RecipeActivity extends AppCompatActivity {
 
 
 
-
-
-        // Check if the layout is for larger screen
-/*
-        mTablet = findViewById(R.id.layout_largerScreen) != null;
-*/
-
-/*        if(findViewById(R.id.layout_largerScreen) != null){
-            sIsTablet = true;
-        }else{
-            sIsTablet = false;
-
-
-
-        }*/
 
 
 

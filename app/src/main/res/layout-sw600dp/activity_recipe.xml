@@ -29,11 +29,12 @@
             android:scaleType="centerInside"
             android:background="@color/colorBackground"/>
 
-<!--        <TextView
+        <TextView
+            android:id="@+id/text_recipeStep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Heading4"
-            android:text="@string/recipe_steps" />-->
+            android:text="@string/recipe_steps" />
     </LinearLayout>
 
 
