@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/recipe_app_widget"
     android:initialLayout="@layout/recipe_app_widget"
-    android:minWidth="40dp"
+    android:minWidth="220dp"
     android:minHeight="110dp"
     android:previewImage="@drawable/baking_placeholder_2"
     android:resizeMode="horizontal|vertical"
