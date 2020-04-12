@@ -37,7 +37,7 @@ public class RecipeActivity extends AppCompatActivity {
     private static Recipe mRecipeSelected ;
     private static final String TAG = "RecipeActivity";
     private int recipeId;
-    public static boolean sIsTablet;
+    //public static boolean sIsTablet;
     private DrawerLayout mDrawer;
 
 
@@ -90,7 +90,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         }else{ // For larger screens
 
-            sIsTablet = true;
+            //sIsTablet = true;
 
             //Drawer layout style
             mDrawer = findViewById(R.id.drawer_layout);
@@ -137,7 +137,7 @@ public class RecipeActivity extends AppCompatActivity {
     // Display Menu layout created
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(sIsTablet){
+        if(MainActivity.sIsTablet){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_category, menu);
             return true;

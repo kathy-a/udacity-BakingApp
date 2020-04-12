@@ -4,6 +4,7 @@ package com.udacity.baking;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecipeViewAdapter mAdapter;
     private static final String TAG = "MAIN ACTIVITY";
+    public static boolean sIsTablet;
+
 
 
     private MainViewModel mViewModel;
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         boolean allowRotation = getResources().getBoolean(R.bool.portrait_only);
         if(allowRotation){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            sIsTablet = false;
+        }else{
+            sIsTablet = true;
         }
 
 
@@ -141,7 +147,15 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView(List<Recipe> recipeList) {
         mRecyclerView = findViewById(R.id.recycler_MainActivity);
         mAdapter = new RecipeViewAdapter(this, recipeList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        int gridsize;
+
+        if(sIsTablet){
+            gridsize = 4;
+        }else{
+            gridsize = 2;
+        }
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridsize));
         mRecyclerView.setAdapter(mAdapter);
     }
 

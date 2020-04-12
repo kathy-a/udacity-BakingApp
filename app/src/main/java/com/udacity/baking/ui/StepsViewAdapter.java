@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.udacity.baking.MainActivity;
 import com.udacity.baking.R;
 import com.udacity.baking.RecipeActivity;
 import com.udacity.baking.database.RecipeStepsEntity;
@@ -28,7 +29,6 @@ import com.udacity.baking.viewmodel.DetailViewModel;
 
 import java.util.List;
 
-import static com.udacity.baking.RecipeActivity.sIsTablet;
 
 public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.ViewHolder> {
 
@@ -61,7 +61,7 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
         String recipeDescription;
 
         // If device is tablet / bigger screen, display shorter description in the recyclerview
-        if(sIsTablet){
+        if(MainActivity.sIsTablet){
             recipeDescription = mRecipeSteps.get(position).getShortDescription();
             holder.textRecipeDescription.setJustificationMode(Layout.JUSTIFICATION_MODE_NONE);
             holder.textRecipeDescription.setGravity(Gravity.START);
