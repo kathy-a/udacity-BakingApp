@@ -54,4 +54,7 @@ dependencies {
 
     //Drawer layout
     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+
+    //for picasso library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
