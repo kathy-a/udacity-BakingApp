@@ -36,7 +36,6 @@ public class VideoFragment extends Fragment {
     private PlayerView playerView;
     private SimpleExoPlayer player;
     private boolean playWhenReady = true;
-    //private boolean playWhenReady = false;
 
     private int currentWindow = 0;
     private long playbackPosition = 0;
@@ -45,7 +44,6 @@ public class VideoFragment extends Fragment {
     private ImageView imageView;
     private DetailViewModel mDetailViewModel;
     private static final String TAG = "VIDEO FRAGMENT";
-    //private String mVideoURL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdae8_-intro-cheesecake/-intro-cheesecake.mp4";
     private String mVideoURL = "video.com";
 
 
@@ -89,7 +87,7 @@ public class VideoFragment extends Fragment {
 
 
         // Observer of new Video URL
-        DetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mDetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String urlString) {
                 Log.d(TAG, "onChanged: videoURL: " + urlString);
@@ -122,14 +120,14 @@ public class VideoFragment extends Fragment {
         }
     }
 
-    @Override
+/*    @Override
     public void onResume() {
         super.onResume();
         //hideSystemUi();
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
-    }
+    }*/
 
     @Override
     public void onPause() {

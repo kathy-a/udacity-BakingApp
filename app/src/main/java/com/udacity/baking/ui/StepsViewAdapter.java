@@ -3,7 +3,10 @@ package com.udacity.baking.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.udacity.baking.MainActivity;
 import com.udacity.baking.R;
 import com.udacity.baking.RecipeActivity;
 import com.udacity.baking.database.RecipeStepsEntity;
@@ -23,6 +28,7 @@ import com.udacity.baking.model.Recipe;
 import com.udacity.baking.viewmodel.DetailViewModel;
 
 import java.util.List;
+
 
 public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.ViewHolder> {
 
@@ -49,9 +55,20 @@ public class StepsViewAdapter extends RecyclerView.Adapter<StepsViewAdapter.View
         return holder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String recipeDescription = mRecipeSteps.get(position).getDescription();
+        String recipeDescription;
+
+        // If device is tablet / bigger screen, display shorter description in the recyclerview
+        if(MainActivity.sIsTablet){
+            recipeDescription = mRecipeSteps.get(position).getShortDescription();
+            holder.textRecipeDescription.setJustificationMode(Layout.JUSTIFICATION_MODE_NONE);
+            holder.textRecipeDescription.setGravity(Gravity.START);
+        }else{
+            recipeDescription = mRecipeSteps.get(position).getDescription();
+        }
+
         holder.textRecipeDescription.setText(recipeDescription);
 
         // Change item background color

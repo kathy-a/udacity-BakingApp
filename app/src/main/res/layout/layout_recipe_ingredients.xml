@@ -8,8 +8,8 @@
     <TextView
         style="@style/Heading4"
         android:id="@+id/text_ingredientName"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/text_ingredient_quantity_measurement"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/text_ingredient_quantity_measurement"
         tools:text="@string/recipe_ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

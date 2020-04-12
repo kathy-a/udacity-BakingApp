@@ -1,6 +1,9 @@
 package com.udacity.baking.ui;
 
+import android.os.Build;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
@@ -36,6 +40,7 @@ public class IngredientViewAdapter extends  RecyclerView.Adapter<IngredientViewA
         return holder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -46,6 +51,10 @@ public class IngredientViewAdapter extends  RecyclerView.Adapter<IngredientViewA
 
         holder.textIngredientName.setText(ingredientName);
         holder.textIngredientMeasurement.setText(quantityMeasurement);
+        holder.textIngredientName.setJustificationMode(Layout.JUSTIFICATION_MODE_NONE);
+        holder.textIngredientName.setGravity(Gravity.START);
+
+
 
     }
 

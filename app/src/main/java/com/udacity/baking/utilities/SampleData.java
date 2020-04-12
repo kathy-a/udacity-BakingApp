@@ -36,13 +36,6 @@ public class SampleData {
         recipe.add(new RecipeEntity(110, SAMPLE_NAME_1,  5, "image string"));
         recipe.add(new RecipeEntity(200, SAMPLE_NAME_2,  5, "image string"));
 
-
-
-/*        recipe.add(new Recipe(0, SAMPLE_NAME_1, ingredient1, step1, 5, "image string"));
-        recipe.add(new Recipe(0, SAMPLE_NAME_2, ingredient1, step1, 5, "image string"));*/
-
-
-
         return recipe;
     }
 

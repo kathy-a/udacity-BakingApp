@@ -4,11 +4,16 @@ package com.udacity.baking;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
@@ -25,39 +30,37 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecipeViewAdapter mAdapter;
     private static final String TAG = "MAIN ACTIVITY";
+    public static boolean sIsTablet;
+
 
 
     private MainViewModel mViewModel;
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*        RecipeFragment ingredientFragment = new RecipeFragment();
-
-        // Add the fragment to its container using the FragmentManager and a transaction
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        fragmentManager.beginTransaction()
-                .add(R.id.frame_ingredients_container,ingredientFragment)
-                .commit();*/
-
-        // TODO: remove temporary placeholder
-/*        final Button button = findViewById(R.id.button_id);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-
-                Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-                startActivity(intent);
+        // Set device orientation supported
+        boolean allowRotation = getResources().getBoolean(R.bool.portrait_only);
+        if(allowRotation){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            sIsTablet = false;
+        }else{
+            sIsTablet = true;
+        }
 
 
-            }
-        });*/
+
 
         initViewModel();
 
+
+
     }
+
+
+
 
     private void initViewModel() {
         // set the reference for view model
@@ -144,7 +147,15 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView(List<Recipe> recipeList) {
         mRecyclerView = findViewById(R.id.recycler_MainActivity);
         mAdapter = new RecipeViewAdapter(this, recipeList);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        int gridsize;
+
+        if(sIsTablet){
+            gridsize = 4;
+        }else{
+            gridsize = 2;
+        }
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridsize));
         mRecyclerView.setAdapter(mAdapter);
     }
 
