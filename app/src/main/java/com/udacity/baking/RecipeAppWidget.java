@@ -53,8 +53,8 @@ public class RecipeAppWidget extends AppWidgetProvider {
              String currentMeasurement = String.valueOf(mRecipeIngredients.get(i).getQuantity());
              currentMeasurement = currentMeasurement + " " + mRecipeIngredients.get(i).getMeasure();
 
-             ingredientBuilder.append(currentIngredient + "\n");
-             measurementBuilder.append(currentMeasurement + "\n");
+             ingredientBuilder.append(currentIngredient + "\n" + "\n");
+             measurementBuilder.append(currentMeasurement + "\n" + "\n");
          }
 
 

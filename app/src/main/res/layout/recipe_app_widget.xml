@@ -10,6 +10,7 @@
         android:id="@+id/widget_text_header"
         style="@style/widget"
         android:contentDescription="@string/ingredients"
+        android:paddingTop="@dimen/activity_thinnest_padding"
         android:textAlignment="center"
         android:text="@string/ingredients"
         android:textStyle="bold|italic" />
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="horizontal">
+
 
         <TextView
             style="@style/Heading4"
@@ -29,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-
         <TextView
             style="@style/Heading4"
             tools:text="@string/recipe_ingredient_measurement"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textStyle="bold"/>
+
 
     </RelativeLayout>
 
