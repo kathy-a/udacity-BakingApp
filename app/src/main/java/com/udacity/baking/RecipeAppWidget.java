@@ -15,8 +15,10 @@ import com.udacity.baking.viewmodel.DetailViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.udacity.baking.MainActivity.sIsTablet;
+
 /**
- * Implementation of App Widget functionality.
+ * Implementation of Recipe Ingredient App Widget functionality.
  */
 public class RecipeAppWidget extends AppWidgetProvider {
 
@@ -47,8 +49,13 @@ public class RecipeAppWidget extends AppWidgetProvider {
                  String currentMeasurement = String.valueOf(mRecipeIngredients.get(i).getQuantity());
                  currentMeasurement = currentMeasurement + " " + mRecipeIngredients.get(i).getMeasure();
 
+                 // Add another line break if ingredient will be 2 lines
+                 if(currentIngredient.length() <= 36 || sIsTablet){
+                     measurementBuilder.append(currentMeasurement + "\n \n");
+                 }else{
+                     measurementBuilder.append(currentMeasurement + "\n" + "\n" + "\n");
+                 }
                  ingredientBuilder.append(currentIngredient + "\n" + "\n");
-                 measurementBuilder.append(currentMeasurement + "\n" + "\n");
              }
 
 
@@ -65,10 +72,6 @@ public class RecipeAppWidget extends AppWidgetProvider {
              Intent intent = new Intent(context, MainActivity.class);
              PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
              views.setOnClickPendingIntent(R.id.layout_ingredients, pendingIntent);
-
-
-
-
 
         }
 
