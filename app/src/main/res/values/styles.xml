@@ -18,7 +18,7 @@
     <style name="Heading4">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:paddingLeft">@dimen/activity_padding</item>
         <item name="android:paddingTop">@dimen/activity_padding</item>
         <item name="android:paddingBottom">@dimen/activity_thin_padding</item>
@@ -29,12 +29,23 @@
 
     <style name="Heading3" parent="Heading4">
         <item name="android:textSize">@dimen/heading_3_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+
     </style>
 
     <style name="Heading2" parent="Heading4">
         <item name="android:textSize">@dimen/heading_2_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="widget" >
+        <item name="android:textSize">@dimen/heading_2_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_margin">@dimen/activity_thin_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
 
 
 

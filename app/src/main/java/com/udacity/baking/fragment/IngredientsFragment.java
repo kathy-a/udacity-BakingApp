@@ -1,10 +1,16 @@
 package com.udacity.baking.fragment;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,17 +23,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
+import com.udacity.baking.RecipeActivity;
+import com.udacity.baking.RecipeAppWidget;
 import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
+import com.udacity.baking.model.Ingredient;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.ui.IngredientViewAdapter;
 import com.udacity.baking.ui.StepsViewAdapter;
 import com.udacity.baking.viewmodel.DetailViewModel;
 import com.udacity.baking.viewmodel.MainViewModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -82,9 +92,12 @@ public class IngredientsFragment extends Fragment {
                     Log.d(TAG, "recipeIngredientDetails: " + "recipe found");
 
                     List<RecipeIngredientsEntity> recipeIngredients = recipeIngredientDetails.getIngredients();
+                    String recipeName = recipeIngredientDetails.getRecipeEntity().getName();
 
                     // Pass recipe ingredients to recyclerview
                     initRecyclerView(recipeIngredients);
+
+                    UpdateWidget(recipeIngredients, recipeName);
 
 
                 }else{
@@ -93,6 +106,41 @@ public class IngredientsFragment extends Fragment {
                 }
             }
         });
+
+    }
+
+    private void UpdateWidget( List<RecipeIngredientsEntity> recipeIngredients, String recipeName) {
+
+        Class destinationActivity = RecipeAppWidget.class;
+        Context context = getActivity();
+
+        Intent intent = new Intent(context, destinationActivity);
+        intent.putExtra("INGREDIENTS", (Serializable) recipeIngredients);
+        intent.putExtra("recipeName", recipeName );
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        if (context != null) {
+            context.sendBroadcast(intent);
+        }
+
+
+
+
+
+/*        IngredientsFragment context = this;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity().getApplication()).getAppWidgetIds(new ComponentName(getActivity().getApplication(), RecipeAppWidget.class);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget);
+        ComponentName thisWidget = new ComponentName(context, RecipeAppWidget.class);
+        remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+
+
+
+
+
+
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget);
+        views.setTextViewText(R.id.widget_text_ingredientName, ingredientName);*/
 
     }
 

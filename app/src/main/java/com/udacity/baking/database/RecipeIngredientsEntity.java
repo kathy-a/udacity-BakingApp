@@ -7,10 +7,12 @@ import androidx.room.ForeignKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "RecipeIngredients" , primaryKeys = {"recipeId", "ingredient"})
-public class RecipeIngredientsEntity {
+public class RecipeIngredientsEntity implements Serializable {
 
     @NonNull
     private Integer recipeId;
