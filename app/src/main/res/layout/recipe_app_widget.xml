@@ -4,6 +4,7 @@
     android:background="@drawable/baking_placeholder_2"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_ingredients"
     android:padding="@dimen/widget_margin">
 
     <TextView
