@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.IdlingResource;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -23,7 +22,8 @@ import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
-import com.udacity.baking.idlingResource.SimpleIdlingResource;
+
+
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.viewmodel.MainViewModel;
@@ -38,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean sIsTablet;
     private MainViewModel mViewModel;
 
-    // The Idling Resource which will be null in production.
-    @Nullable
-    private SimpleIdlingResource mIdlingResource;
+
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -168,17 +166,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
-     */
-    @VisibleForTesting
-    @NonNull
-    public IdlingResource getIdlingResource() {
-        if (mIdlingResource == null) {
-            mIdlingResource = new SimpleIdlingResource();
-        }
-        return mIdlingResource;
-    }
+
+
+
 
 
 }
