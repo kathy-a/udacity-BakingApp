@@ -1,6 +1,9 @@
 package com.udacity.baking;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -19,6 +22,8 @@ import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
+
+
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.viewmodel.MainViewModel;
@@ -31,10 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private RecipeViewAdapter mAdapter;
     private static final String TAG = "MAIN ACTIVITY";
     public static boolean sIsTablet;
-
-
-
     private MainViewModel mViewModel;
+
+
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +164,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridsize));
         mRecyclerView.setAdapter(mAdapter);
     }
+
+
+
+
+
 
 
 }

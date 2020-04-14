@@ -5,7 +5,7 @@
 
 
     <item
-        android:id="@+id/item_most_popular"
+        android:id="@+id/item_ingredients"
         android:title="@string/ingredients"
 
         app:showAsAction="ifRoom">

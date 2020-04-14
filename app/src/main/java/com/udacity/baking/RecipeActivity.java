@@ -1,6 +1,9 @@
 package com.udacity.baking;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -39,6 +42,7 @@ public class RecipeActivity extends AppCompatActivity {
     private int recipeId;
     //public static boolean sIsTablet;
     private DrawerLayout mDrawer;
+
 
 
 
@@ -195,6 +199,9 @@ public class RecipeActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
     }
+
+
+
 
 }
 

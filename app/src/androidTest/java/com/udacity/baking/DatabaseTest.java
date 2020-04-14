@@ -56,7 +56,7 @@ public class DatabaseTest {
         dao.insertAll(SampleData.getSampleRecipeData());
         String original = SampleData.getSampleRecipeData().get(0).getName();
 
-        RecipeEntity fromDb = dao.getRecipeById2(100);
+        RecipeEntity fromDb = dao.getRecipeById2(110);
 
         assertEquals(original, fromDb.getName());
 
