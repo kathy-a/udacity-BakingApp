@@ -1,11 +1,15 @@
 package com.udacity.baking;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.test.espresso.IdlingResource;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
@@ -25,6 +29,7 @@ import com.udacity.baking.fragment.RecipeStepsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.udacity.baking.fragment.SelectedStepFragment;
 import com.udacity.baking.fragment.VideoFragment;
+import com.udacity.baking.idlingResource.SimpleIdlingResource;
 import com.udacity.baking.model.Recipe;
 import com.udacity.baking.viewmodel.DetailViewModel;
 
@@ -40,6 +45,9 @@ public class RecipeActivity extends AppCompatActivity {
     //public static boolean sIsTablet;
     private DrawerLayout mDrawer;
 
+    // The Idling Resource which will be null in production.
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -194,6 +202,19 @@ public class RecipeActivity extends AppCompatActivity {
         // TODO ADD Fragment if needed
 
         viewPager.setAdapter(adapter);
+    }
+
+
+    /**
+     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
     }
 
 }
