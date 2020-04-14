@@ -132,6 +132,7 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
         }
 
 
+
         mDetailViewModel.setStepVideoURL(videoUrl);
 
         mDetailViewModel.setsStepSelected(step);

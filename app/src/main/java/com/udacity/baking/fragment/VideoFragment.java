@@ -1,6 +1,7 @@
 package com.udacity.baking.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,9 +24,11 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.udacity.baking.MainActivity;
 import com.udacity.baking.R;
 import com.udacity.baking.database.RecipeStepDetails;
 import com.udacity.baking.database.RecipeStepsEntity;
+import com.udacity.baking.network.AssertConnectivity;
 import com.udacity.baking.viewmodel.DetailViewModel;
 
 import java.util.List;
@@ -101,7 +104,18 @@ public class VideoFragment extends Fragment {
                     releasePlayer();
                 }else{
                     Log.d(TAG, "onChanged: urlString is NOT empty");
-                    initializePlayer();
+
+                    // Check if there's connectivity before playing video
+                    new AssertConnectivity(getContext());
+
+                    if(AssertConnectivity.isOnline()){
+                        initializePlayer();
+                    }else {
+                        AssertConnectivity.errorConnectMessage();
+                    }
+
+
+
                     playerView.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.GONE);
                 }

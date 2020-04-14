@@ -21,7 +21,6 @@
                 android:resource="@xml/recipe_app_widget_info" />
         </receiver>
 
-        <activity android:name=".StepsActivity" />
         <activity android:name=".RecipeActivity" />
         <activity
             android:name=".MainActivity"

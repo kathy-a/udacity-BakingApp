@@ -1,22 +1,15 @@
 package com.udacity.baking;
 
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
@@ -25,6 +18,7 @@ import com.udacity.baking.database.RecipeStepsEntity;
 
 
 import com.udacity.baking.model.Recipe;
+import com.udacity.baking.network.AssertConnectivity;
 import com.udacity.baking.ui.RecipeViewAdapter;
 import com.udacity.baking.viewmodel.MainViewModel;
 
@@ -37,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
     public static boolean sIsTablet;
     private MainViewModel mViewModel;
-
-
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -56,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
             sIsTablet = true;
         }
 
+        new AssertConnectivity(MainActivity.this);
 
-
-
-        initViewModel();
-
+        if(AssertConnectivity.isOnline()){
+            initViewModel();
+        }else {
+            AssertConnectivity.errorConnectMessage();
+        }
 
 
     }
-
-
 
 
     private void initViewModel() {
