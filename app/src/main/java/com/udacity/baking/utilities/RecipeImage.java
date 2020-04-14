@@ -14,7 +14,7 @@ public class RecipeImage {
         List<String> imagePlaceholder = new ArrayList<>();
 
         for(int i = 0; i<10; i++){
-            String currentImage = "baking_placeholder_" + String.valueOf(i);
+            String currentImage = "baking_placeholder_" + i;
             imagePlaceholder.add(currentImage);
 
         }

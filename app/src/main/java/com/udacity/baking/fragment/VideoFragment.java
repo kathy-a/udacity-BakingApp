@@ -90,7 +90,7 @@ public class VideoFragment extends Fragment {
 
 
         // Observer of new Video URL
-        mDetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+        DetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String urlString) {
                 Log.d(TAG, "onChanged: videoURL: " + urlString);

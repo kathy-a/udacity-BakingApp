@@ -23,7 +23,6 @@
         <item name="android:paddingTop">@dimen/activity_padding</item>
         <item name="android:paddingBottom">@dimen/activity_thin_padding</item>
         <item name="android:textSize">@dimen/heading_4_size</item>
-        <item name="android:justificationMode">inter_word</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 

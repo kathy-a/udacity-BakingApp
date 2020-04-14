@@ -94,7 +94,7 @@ public class DetailViewModel extends AndroidViewModel {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Movie ID selected: " + String.valueOf(sRecipeId));
+                Log.d(TAG, "Movie ID selected: " + sRecipeId);
 
                 RecipeStepDetails recipe = mRepository.getRecipeStepsById(sRecipeId);
                 if (recipe == null){

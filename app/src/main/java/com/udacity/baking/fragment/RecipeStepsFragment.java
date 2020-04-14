@@ -115,7 +115,7 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
 
     @Override
     public void onStepClick(int position) {
-        Log.d(TAG, "onStepClick: " + String.valueOf(position));
+        Log.d(TAG, "onStepClick: " + position);
         mAdapter.notifyDataSetChanged();
 
         selectRecipeStep(position);
@@ -138,10 +138,10 @@ public class RecipeStepsFragment extends Fragment implements StepsViewAdapter.Vi
         mDetailViewModel.setsStepSelected(step);
 
 
-        mDetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
+        DetailViewModel.getsVideoURL().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String urlString) {
-                Log.d(TAG, "onChanged of URL position:" + String.valueOf(position) + " " +  urlString);
+                Log.d(TAG, "onChanged of URL position:" + position + " " +  urlString);
             }
         });
     }

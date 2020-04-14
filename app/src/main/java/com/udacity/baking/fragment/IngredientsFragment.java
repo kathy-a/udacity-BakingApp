@@ -1,16 +1,13 @@
 package com.udacity.baking.fragment;
 
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,19 +20,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.udacity.baking.R;
-import com.udacity.baking.RecipeActivity;
 import com.udacity.baking.RecipeAppWidget;
-import com.udacity.baking.database.RecipeEntity;
 import com.udacity.baking.database.RecipeIngredientDetails;
 import com.udacity.baking.database.RecipeIngredientsEntity;
-import com.udacity.baking.database.RecipeStepDetails;
-import com.udacity.baking.database.RecipeStepsEntity;
-import com.udacity.baking.model.Ingredient;
-import com.udacity.baking.model.Recipe;
+
 import com.udacity.baking.ui.IngredientViewAdapter;
-import com.udacity.baking.ui.StepsViewAdapter;
 import com.udacity.baking.viewmodel.DetailViewModel;
-import com.udacity.baking.viewmodel.MainViewModel;
 
 import java.io.Serializable;
 import java.util.List;
@@ -62,9 +52,7 @@ public class IngredientsFragment extends Fragment {
         // Inflate the fragment layout
         rootView = inflater.inflate(R.layout.fragment_ingredients, container, false);
 
-
         return rootView;
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -72,9 +60,6 @@ public class IngredientsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initViewMode();
-
-
-
 
 
     }
@@ -97,8 +82,8 @@ public class IngredientsFragment extends Fragment {
                     // Pass recipe ingredients to recyclerview
                     initRecyclerView(recipeIngredients);
 
+                    // Update widget with the new ingredients
                     UpdateWidget(recipeIngredients, recipeName);
-
 
                 }else{
                     Log.d(TAG, "RECIPE NOT FOUND");
@@ -124,23 +109,6 @@ public class IngredientsFragment extends Fragment {
         }
 
 
-
-
-
-/*        IngredientsFragment context = this;
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity().getApplication()).getAppWidgetIds(new ComponentName(getActivity().getApplication(), RecipeAppWidget.class);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget);
-        ComponentName thisWidget = new ComponentName(context, RecipeAppWidget.class);
-        remoteViews.setTextViewText(R.id.my_text_view, "myText" + System.currentTimeMillis());
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
-
-
-
-
-
-
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget);
-        views.setTextViewText(R.id.widget_text_ingredientName, ingredientName);*/
 
     }
 

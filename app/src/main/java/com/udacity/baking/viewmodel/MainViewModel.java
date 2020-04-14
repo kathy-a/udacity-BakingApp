@@ -48,7 +48,7 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = AppRepository.getInstance(application.getApplicationContext());
 
         // TODO: CHECK IF THIS CAN BE USE INSTEAD
-        mRecipeListObservable = mRepository.getInstance(application.getApplicationContext()).getRecipeList();
+        mRecipeListObservable = AppRepository.getInstance(application.getApplicationContext()).getRecipeList();
 
 
     }

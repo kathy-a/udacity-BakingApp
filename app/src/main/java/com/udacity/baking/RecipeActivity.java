@@ -1,9 +1,5 @@
 package com.udacity.baking;
 
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -94,8 +89,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         }else{ // For larger screens
 
-            //sIsTablet = true;
-
             //Drawer layout style
             mDrawer = findViewById(R.id.drawer_layout);
 
@@ -118,21 +111,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
-
-
-
         initViewModel();
-
-
-
-
-
-
 
 
     }
@@ -194,8 +173,6 @@ public class RecipeActivity extends AppCompatActivity {
         RecipePageAdapter adapter = new RecipePageAdapter(getSupportFragmentManager());
         adapter.addFragment(new RecipeStepsFragment(), "STEPS");
         adapter.addFragment(new IngredientsFragment(), "INGREDIENTS");
-
-        // TODO ADD Fragment if needed
 
         viewPager.setAdapter(adapter);
     }

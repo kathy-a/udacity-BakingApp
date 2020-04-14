@@ -112,7 +112,6 @@ public class RecipeViewAdapter extends RecyclerView.Adapter<RecipeViewAdapter.Vi
         public void onClick(View v) {
             int position = getAdapterPosition();
 
-            // TODO: Uncomment once the video fragment is implemented
             Class destinationActivity = RecipeActivity.class;
 
             Intent intent = new Intent(mContext, destinationActivity);

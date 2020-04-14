@@ -57,7 +57,7 @@ public class SelectedStepFragment extends Fragment {
         mDetailViewModel = ViewModelProviders.of(this)
                 .get(DetailViewModel.class);
 
-        mDetailViewModel.sStepSelected.observe(getViewLifecycleOwner(), new Observer<String>() {
+        DetailViewModel.sStepSelected.observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String recipeStep) {
                 Log.d(TAG, "selected step: " + recipeStep);
