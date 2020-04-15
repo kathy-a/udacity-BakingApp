@@ -21,7 +21,9 @@
                 android:resource="@xml/recipe_app_widget_info" />
         </receiver>
 
-        <activity android:name=".RecipeActivity" />
+        <activity
+            android:name=".RecipeActivity"
+            android:configChanges="orientation|screenSize|layoutDirection" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

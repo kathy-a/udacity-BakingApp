@@ -63,7 +63,8 @@ public class RecipeActivity extends AppCompatActivity {
         boolean allowRotation = getResources().getBoolean(R.bool.portrait_only);
         if(allowRotation){             // For smaller screens
 
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            // TODO: prevent forcing portrait for now
+           // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
             /**

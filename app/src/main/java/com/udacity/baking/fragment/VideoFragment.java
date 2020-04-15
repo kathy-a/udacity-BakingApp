@@ -151,13 +151,13 @@ public class VideoFragment extends Fragment {
         }
     }
 
-    @Override
+/*    @Override
     public void onStop() {
         super.onStop();
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
-    }
+    }*/
 
     private void initializePlayer() {
         if (player == null){
