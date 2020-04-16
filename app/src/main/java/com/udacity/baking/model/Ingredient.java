@@ -4,7 +4,7 @@ package com.udacity.baking.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient {
+public final class Ingredient {
     @SerializedName("quantity")
     @Expose
     private double quantity;
